@@ -1,0 +1,615 @@
+
+Alocando simbolos comuns
+Tamanho comum do arquivo de símbolos
+
+rl                  0x4               adpcm_dec.o
+dec_plt2            0x4               adpcm_dec.o
+rh2                 0x4               adpcm_dec.o
+spl                 0x4               adpcm_dec.o
+szh                 0x4               adpcm_dec.o
+dec_rlt             0x4               adpcm_dec.o
+ih                  0x4               adpcm_dec.o
+dec_plt1            0x4               adpcm_dec.o
+nbl                 0x4               adpcm_dec.o
+dec_nbh             0x4               adpcm_dec.o
+delay_dltx          0x18              adpcm_dec.o
+dec_del_dltx        0x18              adpcm_dec.o
+dec_ph1             0x4               adpcm_dec.o
+ph                  0x4               adpcm_dec.o
+dh                  0x4               adpcm_dec.o
+dec_sph             0x4               adpcm_dec.o
+sh                  0x4               adpcm_dec.o
+accumd              0x2c              adpcm_dec.o
+detl                0x4               adpcm_dec.o
+eh                  0x4               adpcm_dec.o
+yh                  0x4               adpcm_dec.o
+ah1                 0x4               adpcm_dec.o
+rlt                 0x4               adpcm_dec.o
+sl                  0x4               adpcm_dec.o
+xout1               0x4               adpcm_dec.o
+rs                  0x4               adpcm_dec.o
+szl                 0x4               adpcm_dec.o
+dec_ph2             0x4               adpcm_dec.o
+dec_del_dhx         0x18              adpcm_dec.o
+dec_ah1             0x4               adpcm_dec.o
+dec_szl             0x4               adpcm_dec.o
+dec_dh              0x4               adpcm_dec.o
+rh                  0x4               adpcm_dec.o
+deth                0x4               adpcm_dec.o
+dec_rlt2            0x4               adpcm_dec.o
+dec_rlt1            0x4               adpcm_dec.o
+xh                  0x4               adpcm_dec.o
+dec_sl              0x4               adpcm_dec.o
+xout2               0x4               adpcm_dec.o
+dec_deth            0x4               adpcm_dec.o
+rlt2                0x4               adpcm_dec.o
+ph2                 0x4               adpcm_dec.o
+dec_dlt             0x4               adpcm_dec.o
+ah2                 0x4               adpcm_dec.o
+il                  0x4               adpcm_dec.o
+ilr                 0x4               adpcm_dec.o
+el                  0x4               adpcm_dec.o
+dec_spl             0x4               adpcm_dec.o
+delay_dhx           0x18              adpcm_dec.o
+dec_szh             0x4               adpcm_dec.o
+dec_nbl             0x4               adpcm_dec.o
+dec_ph              0x4               adpcm_dec.o
+sph                 0x4               adpcm_dec.o
+dlt                 0x4               adpcm_dec.o
+dl                  0x4               adpcm_dec.o
+ph1                 0x4               adpcm_dec.o
+tqmf                0x60              adpcm_dec.o
+rh1                 0x4               adpcm_dec.o
+dec_sh              0x4               adpcm_dec.o
+dec_del_bph         0x18              adpcm_dec.o
+xd                  0x4               adpcm_dec.o
+plt2                0x4               adpcm_dec.o
+dec_detl            0x4               adpcm_dec.o
+dec_al2             0x4               adpcm_dec.o
+accumc              0x2c              adpcm_dec.o
+plt1                0x4               adpcm_dec.o
+dec_plt             0x4               adpcm_dec.o
+dec_rh2             0x4               adpcm_dec.o
+al2                 0x4               adpcm_dec.o
+dec_rh1             0x4               adpcm_dec.o
+yl                  0x4               adpcm_dec.o
+nbh                 0x4               adpcm_dec.o
+delay_bpl           0x18              adpcm_dec.o
+rlt1                0x4               adpcm_dec.o
+dec_del_bpl         0x18              adpcm_dec.o
+dec_al1             0x4               adpcm_dec.o
+xl                  0x4               adpcm_dec.o
+plt                 0x4               adpcm_dec.o
+dec_ah2             0x4               adpcm_dec.o
+xs                  0x4               adpcm_dec.o
+al1                 0x4               adpcm_dec.o
+dec_rh              0x4               adpcm_dec.o
+delay_bph           0x18              adpcm_dec.o
+dec_yh              0x4               adpcm_dec.o
+
+Seções de entrada descartadas
+
+ .reginfo       0x0000000000000000        0x0 adpcm_dec.o
+
+Configuração de Memória
+
+Nome             Origem             Tamanho            Atributos
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Script do link-editor e mapa de memória
+
+Endereço da seção .text ajustado para 0x0
+LOAD boot_task.o
+LOAD adpcm_dec.o
+                0x0000000000400000                PROVIDE (__executable_start, 0x400000)
+                0x0000000000400000                . = 0x400000
+
+.interp
+ *(.interp)
+
+.reginfo        0x0000000000400000       0x18
+ *(.reginfo)
+ .reginfo       0x0000000000400000       0x18 boot_task.o
+
+.dynamic
+ *(.dynamic)
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text .rel.text.* .rel.gnu.linkonce.t.*)
+
+.rela.text
+ *(.rela.text .rela.text.* .rela.gnu.linkonce.t.*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata .rel.rodata.* .rel.gnu.linkonce.r.*)
+
+.rela.rodata
+ *(.rela.rodata .rela.rodata.* .rela.gnu.linkonce.r.*)
+
+.rel.data.rel.ro
+ *(.rel.data.rel.ro* .rel.gnu.linkonce.d.rel.ro.*)
+
+.rela.data.rel.ro
+ *(.rela.data.rel.ro* .rela.gnu.linkonce.d.rel.ro.*)
+
+.rel.data
+ *(.rel.data .rel.data.* .rel.gnu.linkonce.d.*)
+
+.rela.data
+ *(.rela.data .rela.data.* .rela.gnu.linkonce.d.*)
+
+.rel.tdata
+ *(.rel.tdata .rel.tdata.* .rel.gnu.linkonce.td.*)
+
+.rela.tdata
+ *(.rela.tdata .rela.tdata.* .rela.gnu.linkonce.td.*)
+
+.rel.tbss
+ *(.rel.tbss .rel.tbss.* .rel.gnu.linkonce.tb.*)
+
+.rela.tbss
+ *(.rela.tbss .rela.tbss.* .rela.gnu.linkonce.tb.*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.sdata
+ *(.rel.sdata .rel.sdata.* .rel.gnu.linkonce.s.*)
+
+.rela.sdata
+ *(.rela.sdata .rela.sdata.* .rela.gnu.linkonce.s.*)
+
+.rel.sbss
+ *(.rel.sbss .rel.sbss.* .rel.gnu.linkonce.sb.*)
+
+.rela.sbss
+ *(.rela.sbss .rela.sbss.* .rela.gnu.linkonce.sb.*)
+
+.rel.sdata2
+ *(.rel.sdata2 .rel.sdata2.* .rel.gnu.linkonce.s2.*)
+
+.rela.sdata2
+ *(.rela.sdata2 .rela.sdata2.* .rela.gnu.linkonce.s2.*)
+
+.rel.sbss2
+ *(.rel.sbss2 .rel.sbss2.* .rel.gnu.linkonce.sb2.*)
+
+.rela.sbss2
+ *(.rela.sbss2 .rela.sbss2.* .rela.gnu.linkonce.sb2.*)
+
+.rel.bss
+ *(.rel.bss .rel.bss.* .rel.gnu.linkonce.b.*)
+
+.rela.bss
+ *(.rela.bss .rela.bss.* .rela.gnu.linkonce.b.*)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.init
+ *(.init)
+
+.plt
+ *(.plt)
+
+.text           0x0000000000000000     0x10c8
+                0x0000000000000000                _ftext = .
+ *(.text .stub .text.* .gnu.linkonce.t.*)
+ .text          0x0000000000000000       0x30 boot_task.o
+                0x0000000000000000                entry
+                0x0000000000000020                SystemCall
+ .text          0x0000000000000030     0x1098 adpcm_dec.o
+                0x0000000000000ac4                decode
+                0x00000000000004cc                strcpy
+                0x00000000000005bc                fabs
+                0x00000000000005e4                reset
+                0x000000000000014c                itoh
+                0x0000000000000908                logscl
+                0x00000000000007d8                filtez
+                0x0000000000000030                itoa
+                0x0000000000000988                uppol2
+                0x00000000000008e0                invqxl
+                0x0000000000000a50                invqah
+                0x000000000000021c                add
+                0x0000000000000258                fixetoa
+                0x00000000000001f0                rand
+                0x000000000000050c                upzero
+                0x000000000000022c                memset
+                0x0000000000000f6c                main
+                0x00000000000009fc                uppol1
+                0x0000000000000a78                logsch
+                0x0000000000000958                scalel
+                0x0000000000000850                quantl
+                0x00000000000004ec                strlen
+                0x00000000000001d8                abs
+                0x0000000000000224                sub
+                0x0000000000000824                filtep
+ *(.text.*personality*)
+ *(.gnu.warning)
+ *(.mips16.fn.*)
+ *(.mips16.call.*)
+
+.fini
+ *(.fini)
+                0x00000000000010c8                PROVIDE (__etext, .)
+                0x00000000000010c8                PROVIDE (_etext, .)
+                0x00000000000010c8                PROVIDE (etext, .)
+
+.rodata         0x00000000000010c8       0x2c
+ *(.rodata .rodata.* .gnu.linkonce.r.*)
+ .rodata.str1.4
+                0x00000000000010c8       0x2c adpcm_dec.o
+
+.rodata1
+ *(.rodata1)
+
+.sdata2
+ *(.sdata2 .sdata2.* .gnu.linkonce.s2.*)
+
+.sbss2
+ *(.sbss2 .sbss2.* .gnu.linkonce.sb2.*)
+
+.eh_frame_hdr
+ *(.eh_frame_hdr)
+
+.eh_frame
+ *(.eh_frame)
+
+.gcc_except_table
+ *(.gcc_except_table .gcc_except_table.*)
+                0x00000000000010f4                . = .
+
+.eh_frame
+ *(.eh_frame)
+
+.gcc_except_table
+ *(.gcc_except_table .gcc_except_table.*)
+
+.tdata
+ *(.tdata .tdata.* .gnu.linkonce.td.*)
+
+.tbss
+ *(.tbss .tbss.* .gnu.linkonce.tb.*)
+ *(.tcommon)
+
+.preinit_array  0x00000000000010f4        0x0
+                0x00000000000010f4                PROVIDE (__preinit_array_start, .)
+ *(.preinit_array)
+                0x00000000000010f4                PROVIDE (__preinit_array_end, .)
+
+.init_array     0x00000000000010f4        0x0
+                0x00000000000010f4                PROVIDE (__init_array_start, .)
+ *(SORT(.init_array.*))
+ *(.init_array)
+                0x00000000000010f4                PROVIDE (__init_array_end, .)
+
+.fini_array     0x00000000000010f4        0x0
+                0x00000000000010f4                PROVIDE (__fini_array_start, .)
+ *(.fini_array)
+ *(SORT(.fini_array.*))
+                0x00000000000010f4                PROVIDE (__fini_array_end, .)
+
+.ctors
+ *crtbegin*.o(.ctors)
+ *(EXCLUDE_FILE(*crtend*.o) .ctors)
+ *(SORT(.ctors.*))
+ *(.ctors)
+
+.dtors
+ *crtbegin*.o(.dtors)
+ *(EXCLUDE_FILE(*crtend*.o) .dtors)
+ *(SORT(.dtors.*))
+ *(.dtors)
+
+.jcr
+ *(.jcr)
+
+.data.rel.ro
+ *(.data.rel.ro.local* .gnu.linkonce.d.rel.ro.local.*)
+ *(.data.rel.ro* .gnu.linkonce.d.rel.ro.*)
+
+.data           0x00000000000010f4      0x490
+                0x00000000000010f4                _fdata = .
+ *(.data .data.* .gnu.linkonce.d.*)
+ .data          0x00000000000010f4        0x0 boot_task.o
+ .data          0x00000000000010f4      0x490 adpcm_dec.o
+                0x0000000000001574                wh_code_table
+                0x0000000000001564                qq2_code2_table
+                0x0000000000001194                qq5_code5_table
+                0x0000000000001354                wl_table
+                0x00000000000013f4                decis_levl
+                0x0000000000001374                ilb_table
+                0x0000000000001214                qq6_code6_table
+                0x000000000000146c                quant26bt_pos
+                0x00000000000010f4                h
+                0x0000000000001154                qq4_code4_table
+                0x00000000000014e8                quant26bt_neg
+                0x0000000000001314                wl_code_table
+ *(.gnu.linkonce.d.*personality*)
+
+.data1
+ *(.data1)
+                0x0000000000001584                . = .
+                0x0000000000009580                _gp = (ALIGN (0x10) + 0x7ff0)
+
+.got
+ *(.got.plt)
+ *(.got)
+
+.sdata
+ *(.sdata .sdata.* .gnu.linkonce.s.*)
+
+.lit8
+ *(.lit8)
+
+.lit4
+ *(.lit4)
+                0x0000000000001584                _edata = .
+                0x0000000000001584                PROVIDE (edata, .)
+                0x0000000000001584                __bss_start = .
+                0x0000000000001584                _fbss = .
+
+.sbss           0x0000000000001584      0x124
+ *(.dynsbss)
+ *(.sbss .sbss.* .gnu.linkonce.sb.*)
+ *(.scommon)
+ .scommon       0x0000000000001584      0x124 adpcm_dec.o
+                0x0000000000001584                rl
+                0x0000000000001588                dec_plt2
+                0x000000000000158c                rh2
+                0x0000000000001590                spl
+                0x0000000000001594                szh
+                0x0000000000001598                dec_rlt
+                0x000000000000159c                ih
+                0x00000000000015a0                dec_plt1
+                0x00000000000015a4                nbl
+                0x00000000000015a8                dec_nbh
+                0x00000000000015ac                dec_ph1
+                0x00000000000015b0                ph
+                0x00000000000015b4                dh
+                0x00000000000015b8                dec_sph
+                0x00000000000015bc                sh
+                0x00000000000015c0                detl
+                0x00000000000015c4                eh
+                0x00000000000015c8                yh
+                0x00000000000015cc                ah1
+                0x00000000000015d0                rlt
+                0x00000000000015d4                sl
+                0x00000000000015d8                xout1
+                0x00000000000015dc                rs
+                0x00000000000015e0                szl
+                0x00000000000015e4                dec_ph2
+                0x00000000000015e8                dec_ah1
+                0x00000000000015ec                dec_szl
+                0x00000000000015f0                dec_dh
+                0x00000000000015f4                rh
+                0x00000000000015f8                deth
+                0x00000000000015fc                dec_rlt2
+                0x0000000000001600                dec_rlt1
+                0x0000000000001604                xh
+                0x0000000000001608                dec_sl
+                0x000000000000160c                xout2
+                0x0000000000001610                dec_deth
+                0x0000000000001614                rlt2
+                0x0000000000001618                ph2
+                0x000000000000161c                dec_dlt
+                0x0000000000001620                ah2
+                0x0000000000001624                il
+                0x0000000000001628                ilr
+                0x000000000000162c                el
+                0x0000000000001630                dec_spl
+                0x0000000000001634                dec_szh
+                0x0000000000001638                dec_nbl
+                0x000000000000163c                dec_ph
+                0x0000000000001640                sph
+                0x0000000000001644                dlt
+                0x0000000000001648                dl
+                0x000000000000164c                ph1
+                0x0000000000001650                rh1
+                0x0000000000001654                dec_sh
+                0x0000000000001658                xd
+                0x000000000000165c                plt2
+                0x0000000000001660                dec_detl
+                0x0000000000001664                dec_al2
+                0x0000000000001668                plt1
+                0x000000000000166c                dec_plt
+                0x0000000000001670                dec_rh2
+                0x0000000000001674                al2
+                0x0000000000001678                dec_rh1
+                0x000000000000167c                yl
+                0x0000000000001680                nbh
+                0x0000000000001684                rlt1
+                0x0000000000001688                dec_al1
+                0x000000000000168c                xl
+                0x0000000000001690                plt
+                0x0000000000001694                dec_ah2
+                0x0000000000001698                xs
+                0x000000000000169c                al1
+                0x00000000000016a0                dec_rh
+                0x00000000000016a4                dec_yh
+
+.bss            0x00000000000016a8      0x1bc
+ *(.dynbss)
+ *(.bss .bss.* .gnu.linkonce.b.*)
+ .bss           0x00000000000016a8        0x0 boot_task.o
+ .bss           0x00000000000016a8       0x44 adpcm_dec.o
+ *(COMMON)
+ COMMON         0x00000000000016ec      0x178 adpcm_dec.o
+                0x00000000000016ec                delay_dltx
+                0x0000000000001704                dec_del_dltx
+                0x000000000000171c                accumd
+                0x0000000000001748                dec_del_dhx
+                0x0000000000001760                delay_dhx
+                0x0000000000001778                tqmf
+                0x00000000000017d8                dec_del_bph
+                0x00000000000017f0                accumc
+                0x000000000000181c                delay_bpl
+                0x0000000000001834                dec_del_bpl
+                0x000000000000184c                delay_bph
+                0x0000000000001864                . = ALIGN ((. != 0x0)?0x4:0x1)
+                0x0000000000001864                . = ALIGN (0x4)
+                0x0000000000001864                . = ALIGN (0x4)
+                0x0000000000001864                _end = .
+                0x0000000000001864                PROVIDE (end, .)
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment        0x0000000000000000       0x12
+ *(.comment)
+ .comment       0x0000000000000000       0x12 adpcm_dec.o
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges
+ *(.debug_aranges)
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info
+ *(.debug_info .gnu.linkonce.wi.*)
+
+.debug_abbrev
+ *(.debug_abbrev)
+
+.debug_line
+ *(.debug_line)
+
+.debug_frame
+ *(.debug_frame)
+
+.debug_str
+ *(.debug_str)
+
+.debug_loc
+ *(.debug_loc)
+
+.debug_macinfo
+ *(.debug_macinfo)
+
+.debug_weaknames
+ *(.debug_weaknames)
+
+.debug_funcnames
+ *(.debug_funcnames)
+
+.debug_typenames
+ *(.debug_typenames)
+
+.debug_varnames
+ *(.debug_varnames)
+
+.gptab.sdata
+ *(.gptab.data)
+ *(.gptab.sdata)
+
+.gptab.sbss
+ *(.gptab.bss)
+ *(.gptab.sbss)
+
+.mdebug.abi32   0x0000000000000012        0x0
+ *(.mdebug.abi32)
+ .mdebug.abi32  0x0000000000000012        0x0 adpcm_dec.o
+
+.mdebug.abiN32
+ *(.mdebug.abiN32)
+
+.mdebug.abi64
+ *(.mdebug.abi64)
+
+.mdebug.abiO64
+ *(.mdebug.abiO64)
+
+.mdebug.eabi32
+ *(.mdebug.eabi32)
+
+.mdebug.eabi64
+ *(.mdebug.eabi64)
+
+.gcc_compiled_long32
+ *(.gcc_compiled_long32)
+
+.gcc_compiled_long64
+ *(.gcc_compiled_long64)
+
+/DISCARD/
+ *(.note.GNU-stack)
+OUTPUT(adpcm_dec.bin elf32-bigmips)
+
+.pdr            0x0000000000000000      0x360
+ .pdr           0x0000000000000000       0x40 boot_task.o
+ .pdr           0x0000000000000040      0x320 adpcm_dec.o

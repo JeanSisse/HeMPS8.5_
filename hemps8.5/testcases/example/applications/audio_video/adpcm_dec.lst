@@ -1,0 +1,1130 @@
+
+adpcm_dec_debug.bin: formato do arquivo elf32-bigmips
+
+Disassembly of section .text:
+
+00000000 <entry>:
+       0:	241d7fff 	li	sp,32767
+       4:	0c0003db 	jal	f6c <main>
+       8:	00000000 	nop
+       c:	00002021 	move	a0,zero
+      10:	0000000c 	syscall
+      14:	00000000 	nop
+      18:	08000006 	j	18 <entry+0x18>
+      1c:	00000000 	nop
+
+00000020 <SystemCall>:
+      20:	0000000c 	syscall
+      24:	00000000 	nop
+      28:	03e00008 	jr	ra
+      2c:	00000000 	nop
+
+00000030 <itoa>:
+      30:	14800009 	bnez	a0,58 <itoa+0x28>
+      34:	00802821 	move	a1,a0
+      38:	3c020004 	lui	v0,0x4
+      3c:	244416e0 	addiu	a0,v0,5856
+      40:	00802821 	move	a1,a0
+      44:	24030030 	li	v1,48
+      48:	a04316e0 	sb	v1,5856(v0)
+      4c:	00a01021 	move	v0,a1
+      50:	03e00008 	jr	ra
+      54:	a0800001 	sb	zero,1(a0)
+      58:	3c03cccc 	lui	v1,0xcccc
+      5c:	3463cccd 	ori	v1,v1,0xcccd
+      60:	00830019 	multu	a0,v1
+      64:	3c020004 	lui	v0,0x4
+      68:	244616e1 	addiu	a2,v0,5857
+      6c:	3c080004 	lui	t0,0x4
+      70:	24070001 	li	a3,1
+      74:	00001810 	mfhi	v1
+      78:	000318c2 	srl	v1,v1,0x3
+      7c:	00031040 	sll	v0,v1,0x1
+      80:	000320c0 	sll	a0,v1,0x3
+      84:	00441021 	addu	v0,v0,a0
+      88:	00a21023 	subu	v0,a1,v0
+      8c:	24420030 	addiu	v0,v0,48
+      90:	00602821 	move	a1,v1
+      94:	10a00013 	beqz	a1,e4 <itoa+0xb4>
+      98:	a10216e0 	sb	v0,5856(t0)
+      9c:	3c03cccc 	lui	v1,0xcccc
+      a0:	3463cccd 	ori	v1,v1,0xcccd
+      a4:	00a30019 	multu	a1,v1
+      a8:	24e70001 	addiu	a3,a3,1
+      ac:	00001810 	mfhi	v1
+      b0:	000320c2 	srl	a0,v1,0x3
+      b4:	00041040 	sll	v0,a0,0x1
+      b8:	000418c0 	sll	v1,a0,0x3
+      bc:	00431021 	addu	v0,v0,v1
+      c0:	00a21023 	subu	v0,a1,v0
+      c4:	24420030 	addiu	v0,v0,48
+      c8:	a0c20000 	sb	v0,0(a2)
+      cc:	2402000b 	li	v0,11
+      d0:	10e2000d 	beq	a3,v0,108 <itoa+0xd8>
+      d4:	24c60001 	addiu	a2,a2,1
+      d8:	00802821 	move	a1,a0
+      dc:	14a0fff0 	bnez	a1,a0 <itoa+0x70>
+      e0:	3c03cccc 	lui	v1,0xcccc
+      e4:	3c040004 	lui	a0,0x4
+      e8:	248216d4 	addiu	v0,a0,5844
+      ec:	00e21021 	addu	v0,a3,v0
+      f0:	24e3ffff 	addiu	v1,a3,-1
+      f4:	04610008 	bgez	v1,118 <itoa+0xe8>
+      f8:	a0400000 	sb	zero,0(v0)
+      fc:	248516d4 	addiu	a1,a0,5844
+     100:	03e00008 	jr	ra
+     104:	00a01021 	move	v0,a1
+     108:	3c040004 	lui	a0,0x4
+     10c:	248216d4 	addiu	v0,a0,5844
+     110:	2403000a 	li	v1,10
+     114:	a040000b 	sb	zero,11(v0)
+     118:	248216d4 	addiu	v0,a0,5844
+     11c:	00621821 	addu	v1,v1,v0
+     120:	3c020004 	lui	v0,0x4
+     124:	250516e0 	addiu	a1,t0,5856
+     128:	244616d3 	addiu	a2,v0,5843
+     12c:	90a20000 	lbu	v0,0(a1)
+     130:	00000000 	nop
+     134:	a0620000 	sb	v0,0(v1)
+     138:	2463ffff 	addiu	v1,v1,-1
+     13c:	1466fffb 	bne	v1,a2,12c <itoa+0xfc>
+     140:	24a50001 	addiu	a1,a1,1
+     144:	08000040 	j	100 <itoa+0xd0>
+     148:	248516d4 	addiu	a1,a0,5844
+
+0000014c <itoh>:
+     14c:	3c080004 	lui	t0,0x4
+     150:	250316c8 	addiu	v1,t0,5832
+     154:	24050030 	li	a1,48
+     158:	24020078 	li	v0,120
+     15c:	a0620001 	sb	v0,1(v1)
+     160:	a060000a 	sb	zero,10(v1)
+     164:	1480000b 	bnez	a0,194 <itoh+0x48>
+     168:	a10516c8 	sb	a1,5832(t0)
+     16c:	a0650009 	sb	a1,9(v1)
+     170:	a0650002 	sb	a1,2(v1)
+     174:	a0650003 	sb	a1,3(v1)
+     178:	a0650004 	sb	a1,4(v1)
+     17c:	a0650005 	sb	a1,5(v1)
+     180:	a0650006 	sb	a1,6(v1)
+     184:	a0650007 	sb	a1,7(v1)
+     188:	a0650008 	sb	a1,8(v1)
+     18c:	03e00008 	jr	ra
+     190:	250216c8 	addiu	v0,t0,5832
+     194:	3c020004 	lui	v0,0x4
+     198:	3c030004 	lui	v1,0x4
+     19c:	244716d1 	addiu	a3,v0,5841
+     1a0:	0800006e 	j	1b8 <itoh+0x6c>
+     1a4:	246316c9 	addiu	v1,v1,5833
+     1a8:	a0e60000 	sb	a2,0(a3)
+     1ac:	24e7ffff 	addiu	a3,a3,-1
+     1b0:	10e3fff6 	beq	a3,v1,18c <itoh+0x40>
+     1b4:	00042102 	srl	a0,a0,0x4
+     1b8:	3082000f 	andi	v0,a0,0xf
+     1bc:	24460030 	addiu	a2,v0,48
+     1c0:	24450057 	addiu	a1,v0,87
+     1c4:	2c42000a 	sltiu	v0,v0,10
+     1c8:	1440fff7 	bnez	v0,1a8 <itoh+0x5c>
+     1cc:	00000000 	nop
+     1d0:	0800006b 	j	1ac <itoh+0x60>
+     1d4:	a0e50000 	sb	a1,0(a3)
+
+000001d8 <abs>:
+     1d8:	04800003 	bltz	a0,1e8 <abs+0x10>
+     1dc:	00801021 	move	v0,a0
+     1e0:	03e00008 	jr	ra
+     1e4:	00000000 	nop
+     1e8:	03e00008 	jr	ra
+     1ec:	00041023 	negu	v0,a0
+
+000001f0 <rand>:
+     1f0:	30820001 	andi	v0,a0,0x1
+     1f4:	00021023 	negu	v0,v0
+     1f8:	3042b400 	andi	v0,v0,0xb400
+     1fc:	00042043 	sra	a0,a0,0x1
+     200:	00822026 	xor	a0,a0,v0
+     204:	14c00002 	bnez	a2,210 <rand+0x20>
+     208:	0086001a 	div	zero,a0,a2
+     20c:	0007000d 	break	0x7
+     210:	00001010 	mfhi	v0
+     214:	03e00008 	jr	ra
+     218:	00451021 	addu	v0,v0,a1
+
+0000021c <add>:
+     21c:	03e00008 	jr	ra
+     220:	00851021 	addu	v0,a0,a1
+
+00000224 <sub>:
+     224:	03e00008 	jr	ra
+     228:	00851023 	subu	v0,a0,a1
+
+0000022c <memset>:
+     22c:	18c00008 	blez	a2,250 <memset+0x24>
+     230:	00801021 	move	v0,a0
+     234:	30a500ff 	andi	a1,a1,0xff
+     238:	00c43021 	addu	a2,a2,a0
+     23c:	00801821 	move	v1,a0
+     240:	a0650000 	sb	a1,0(v1)
+     244:	24630001 	addiu	v1,v1,1
+     248:	1466fffd 	bne	v1,a2,240 <memset+0x14>
+     24c:	00000000 	nop
+     250:	03e00008 	jr	ra
+     254:	00000000 	nop
+
+00000258 <fixetoa>:
+     258:	0480004b 	bltz	a0,388 <fixetoa+0x130>
+     25c:	3c0b0004 	lui	t3,0x4
+     260:	10800042 	beqz	a0,36c <fixetoa+0x114>
+     264:	3c020004 	lui	v0,0x4
+     268:	3c0b0004 	lui	t3,0x4
+     26c:	00802821 	move	a1,a0
+     270:	00003021 	move	a2,zero
+     274:	080000a6 	j	298 <fixetoa+0x40>
+     278:	256716b8 	addiu	a3,t3,5816
+     27c:	10400084 	beqz	v0,490 <fixetoa+0x238>
+     280:	24020030 	li	v0,48
+     284:	a0e20000 	sb	v0,0(a3)
+     288:	24c60001 	addiu	a2,a2,1
+     28c:	2402000c 	li	v0,12
+     290:	10c20015 	beq	a2,v0,2e8 <fixetoa+0x90>
+     294:	24e70001 	addiu	a3,a3,1
+     298:	00051fc3 	sra	v1,a1,0x1f
+     29c:	10a0fff7 	beqz	a1,27c <fixetoa+0x24>
+     2a0:	28c20005 	slti	v0,a2,5
+     2a4:	3c026666 	lui	v0,0x6666
+     2a8:	34426667 	ori	v0,v0,0x6667
+     2ac:	00a20018 	mult	a1,v0
+     2b0:	24c60001 	addiu	a2,a2,1
+     2b4:	00001010 	mfhi	v0
+     2b8:	00021083 	sra	v0,v0,0x2
+     2bc:	00431023 	subu	v0,v0,v1
+     2c0:	00021840 	sll	v1,v0,0x1
+     2c4:	000220c0 	sll	a0,v0,0x3
+     2c8:	00641821 	addu	v1,v1,a0
+     2cc:	00a31823 	subu	v1,a1,v1
+     2d0:	24630030 	addiu	v1,v1,48
+     2d4:	00402821 	move	a1,v0
+     2d8:	2402000c 	li	v0,12
+     2dc:	a0e30000 	sb	v1,0(a3)
+     2e0:	14c2ffed 	bne	a2,v0,298 <fixetoa+0x40>
+     2e4:	24e70001 	addiu	a3,a3,1
+     2e8:	3c090004 	lui	t1,0x4
+     2ec:	252216a8 	addiu	v0,t1,5800
+     2f0:	2406000c 	li	a2,12
+     2f4:	a040000d 	sb	zero,13(v0)
+     2f8:	256716b8 	addiu	a3,t3,5816
+     2fc:	00002821 	move	a1,zero
+     300:	252216a8 	addiu	v0,t1,5800
+     304:	90e40000 	lbu	a0,0(a3)
+     308:	00c21821 	addu	v1,a2,v0
+     30c:	24c6ffff 	addiu	a2,a2,-1
+     310:	24a50001 	addiu	a1,a1,1
+     314:	24e70001 	addiu	a3,a3,1
+     318:	00c24021 	addu	t0,a2,v0
+     31c:	04c00010 	bltz	a2,360 <fixetoa+0x108>
+     320:	a0640000 	sb	a0,0(v1)
+     324:	24020004 	li	v0,4
+     328:	14a2fff6 	bne	a1,v0,304 <fixetoa+0xac>
+     32c:	252216a8 	addiu	v0,t1,5800
+     330:	2402002e 	li	v0,46
+     334:	a1020000 	sb	v0,0(t0)
+     338:	24c6ffff 	addiu	a2,a2,-1
+     33c:	252216a8 	addiu	v0,t1,5800
+     340:	90e40000 	lbu	a0,0(a3)
+     344:	00c21821 	addu	v1,a2,v0
+     348:	24c6ffff 	addiu	a2,a2,-1
+     34c:	24a50001 	addiu	a1,a1,1
+     350:	24e70001 	addiu	a3,a3,1
+     354:	00c24021 	addu	t0,a2,v0
+     358:	04c1fff2 	bgez	a2,324 <fixetoa+0xcc>
+     35c:	a0640000 	sb	a0,0(v1)
+     360:	252516a8 	addiu	a1,t1,5800
+     364:	03e00008 	jr	ra
+     368:	00a01021 	move	v0,a1
+     36c:	244416b8 	addiu	a0,v0,5816
+     370:	00802821 	move	a1,a0
+     374:	24030030 	li	v1,48
+     378:	a04316b8 	sb	v1,5816(v0)
+     37c:	00a01021 	move	v0,a1
+     380:	03e00008 	jr	ra
+     384:	a0800001 	sb	zero,1(a0)
+     388:	3c026666 	lui	v0,0x6666
+     38c:	00042823 	negu	a1,a0
+     390:	344a6667 	ori	t2,v0,0x6667
+     394:	00003021 	move	a2,zero
+     398:	256716b8 	addiu	a3,t3,5816
+     39c:	24090030 	li	t1,48
+     3a0:	080000f0 	j	3c0 <fixetoa+0x168>
+     3a4:	2408000c 	li	t0,12
+     3a8:	10400040 	beqz	v0,4ac <fixetoa+0x254>
+     3ac:	00000000 	nop
+     3b0:	24c60001 	addiu	a2,a2,1
+     3b4:	a0e90000 	sb	t1,0(a3)
+     3b8:	10c80012 	beq	a2,t0,404 <fixetoa+0x1ac>
+     3bc:	24e70001 	addiu	a3,a3,1
+     3c0:	00051fc3 	sra	v1,a1,0x1f
+     3c4:	10a0fff8 	beqz	a1,3a8 <fixetoa+0x150>
+     3c8:	28c20005 	slti	v0,a2,5
+     3cc:	00aa0018 	mult	a1,t2
+     3d0:	24c60001 	addiu	a2,a2,1
+     3d4:	00001010 	mfhi	v0
+     3d8:	00021083 	sra	v0,v0,0x2
+     3dc:	00431023 	subu	v0,v0,v1
+     3e0:	00021840 	sll	v1,v0,0x1
+     3e4:	000220c0 	sll	a0,v0,0x3
+     3e8:	00641821 	addu	v1,v1,a0
+     3ec:	00a31823 	subu	v1,a1,v1
+     3f0:	24630030 	addiu	v1,v1,48
+     3f4:	a0e30000 	sb	v1,0(a3)
+     3f8:	00402821 	move	a1,v0
+     3fc:	14c8fff0 	bne	a2,t0,3c0 <fixetoa+0x168>
+     400:	24e70001 	addiu	a3,a3,1
+     404:	3c090004 	lui	t1,0x4
+     408:	252216a8 	addiu	v0,t1,5800
+     40c:	a040000e 	sb	zero,14(v0)
+     410:	2405000d 	li	a1,13
+     414:	256716b8 	addiu	a3,t3,5816
+     418:	00003021 	move	a2,zero
+     41c:	252216a8 	addiu	v0,t1,5800
+     420:	90e40000 	lbu	a0,0(a3)
+     424:	00a21821 	addu	v1,a1,v0
+     428:	24a5ffff 	addiu	a1,a1,-1
+     42c:	24c60001 	addiu	a2,a2,1
+     430:	24e70001 	addiu	a3,a3,1
+     434:	00a24021 	addu	t0,a1,v0
+     438:	04a00010 	bltz	a1,47c <fixetoa+0x224>
+     43c:	a0640000 	sb	a0,0(v1)
+     440:	24020004 	li	v0,4
+     444:	14c2fff6 	bne	a2,v0,420 <fixetoa+0x1c8>
+     448:	252216a8 	addiu	v0,t1,5800
+     44c:	2402002e 	li	v0,46
+     450:	a1020000 	sb	v0,0(t0)
+     454:	24a5ffff 	addiu	a1,a1,-1
+     458:	252216a8 	addiu	v0,t1,5800
+     45c:	90e40000 	lbu	a0,0(a3)
+     460:	00a21821 	addu	v1,a1,v0
+     464:	24a5ffff 	addiu	a1,a1,-1
+     468:	24c60001 	addiu	a2,a2,1
+     46c:	24e70001 	addiu	a3,a3,1
+     470:	00a24021 	addu	t0,a1,v0
+     474:	04a1fff2 	bgez	a1,440 <fixetoa+0x1e8>
+     478:	a0640000 	sb	a0,0(v1)
+     47c:	252516a8 	addiu	a1,t1,5800
+     480:	2402002d 	li	v0,45
+     484:	a12216a8 	sb	v0,5800(t1)
+     488:	03e00008 	jr	ra
+     48c:	00a01021 	move	v0,a1
+     490:	3c090004 	lui	t1,0x4
+     494:	252216a8 	addiu	v0,t1,5800
+     498:	00c21021 	addu	v0,a2,v0
+     49c:	04c1ff96 	bgez	a2,2f8 <fixetoa+0xa0>
+     4a0:	a0400001 	sb	zero,1(v0)
+     4a4:	080000d9 	j	364 <fixetoa+0x10c>
+     4a8:	252516a8 	addiu	a1,t1,5800
+     4ac:	3c090004 	lui	t1,0x4
+     4b0:	252216a8 	addiu	v0,t1,5800
+     4b4:	00c21021 	addu	v0,a2,v0
+     4b8:	24c50001 	addiu	a1,a2,1
+     4bc:	04a1ffd5 	bgez	a1,414 <fixetoa+0x1bc>
+     4c0:	a0400002 	sb	zero,2(v0)
+     4c4:	08000120 	j	480 <fixetoa+0x228>
+     4c8:	252516a8 	addiu	a1,t1,5800
+
+000004cc <strcpy>:
+     4cc:	00801821 	move	v1,a0
+     4d0:	80a20000 	lb	v0,0(a1)
+     4d4:	24a50001 	addiu	a1,a1,1
+     4d8:	a0620000 	sb	v0,0(v1)
+     4dc:	1440fffc 	bnez	v0,4d0 <strcpy+0x4>
+     4e0:	24630001 	addiu	v1,v1,1
+     4e4:	03e00008 	jr	ra
+     4e8:	00801021 	move	v0,a0
+
+000004ec <strlen>:
+     4ec:	00801821 	move	v1,a0
+     4f0:	80620000 	lb	v0,0(v1)
+     4f4:	00000000 	nop
+     4f8:	1440fffd 	bnez	v0,4f0 <strlen+0x4>
+     4fc:	24630001 	addiu	v1,v1,1
+     500:	00641023 	subu	v0,v1,a0
+     504:	03e00008 	jr	ra
+     508:	2442ffff 	addiu	v0,v0,-1
+
+0000050c <upzero>:
+     50c:	00804021 	move	t0,a0
+     510:	14800015 	bnez	a0,568 <upzero+0x5c>
+     514:	00a03821 	move	a3,a1
+     518:	00002021 	move	a0,zero
+     51c:	24050006 	li	a1,6
+     520:	8cc30000 	lw	v1,0(a2)
+     524:	24840001 	addiu	a0,a0,1
+     528:	00031200 	sll	v0,v1,0x8
+     52c:	00431023 	subu	v0,v0,v1
+     530:	00021203 	sra	v0,v0,0x8
+     534:	acc20000 	sw	v0,0(a2)
+     538:	1485fff9 	bne	a0,a1,520 <upzero+0x14>
+     53c:	24c60004 	addiu	a2,a2,4
+     540:	8ce30010 	lw	v1,16(a3)
+     544:	8ce4000c 	lw	a0,12(a3)
+     548:	8ce50000 	lw	a1,0(a3)
+     54c:	8ce20008 	lw	v0,8(a3)
+     550:	ace80000 	sw	t0,0(a3)
+     554:	ace30014 	sw	v1,20(a3)
+     558:	ace40010 	sw	a0,16(a3)
+     55c:	ace2000c 	sw	v0,12(a3)
+     560:	03e00008 	jr	ra
+     564:	ace50004 	sw	a1,4(a3)
+     568:	00002021 	move	a0,zero
+     56c:	08000166 	j	598 <upzero+0x8c>
+     570:	24090018 	li	t1,24
+     574:	8cc30000 	lw	v1,0(a2)
+     578:	24840004 	addiu	a0,a0,4
+     57c:	00031200 	sll	v0,v1,0x8
+     580:	00431023 	subu	v0,v0,v1
+     584:	00021203 	sra	v0,v0,0x8
+     588:	00a21021 	addu	v0,a1,v0
+     58c:	acc20000 	sw	v0,0(a2)
+     590:	1089ffeb 	beq	a0,t1,540 <upzero+0x34>
+     594:	24c60004 	addiu	a2,a2,4
+     598:	00e41821 	addu	v1,a3,a0
+     59c:	8c620000 	lw	v0,0(v1)
+     5a0:	00000000 	nop
+     5a4:	01020018 	mult	t0,v0
+     5a8:	00001012 	mflo	v0
+     5ac:	0441fff1 	bgez	v0,574 <upzero+0x68>
+     5b0:	24050080 	li	a1,128
+     5b4:	0800015d 	j	574 <upzero+0x68>
+     5b8:	2405ff80 	li	a1,-128
+
+000005bc <fabs>:
+     5bc:	44800000 	mtc1	zero,$f0
+     5c0:	00000000 	nop
+     5c4:	460c003e 	c.le.s	$f0,$f12
+     5c8:	00000000 	nop
+     5cc:	45000003 	bc1f	5dc <fabs+0x20>
+     5d0:	46006006 	mov.s	$f0,$f12
+     5d4:	03e00008 	jr	ra
+     5d8:	00000000 	nop
+     5dc:	03e00008 	jr	ra
+     5e0:	46006007 	neg.s	$f0,$f12
+
+000005e4 <reset>:
+     5e4:	24040020 	li	a0,32
+     5e8:	3c020004 	lui	v0,0x4
+     5ec:	24050008 	li	a1,8
+     5f0:	ac4415c0 	sw	a0,5568(v0)
+     5f4:	3c030004 	lui	v1,0x4
+     5f8:	3c020004 	lui	v0,0x4
+     5fc:	ac6515f8 	sw	a1,5624(v1)
+     600:	ac441660 	sw	a0,5728(v0)
+     604:	3c030004 	lui	v1,0x4
+     608:	3c020004 	lui	v0,0x4
+     60c:	ac651610 	sw	a1,5648(v1)
+     610:	ac401614 	sw	zero,5652(v0)
+     614:	3c030004 	lui	v1,0x4
+     618:	3c020004 	lui	v0,0x4
+     61c:	ac601684 	sw	zero,5764(v1)
+     620:	ac40165c 	sw	zero,5724(v0)
+     624:	3c030004 	lui	v1,0x4
+     628:	3c020004 	lui	v0,0x4
+     62c:	ac601668 	sw	zero,5736(v1)
+     630:	ac401674 	sw	zero,5748(v0)
+     634:	3c030004 	lui	v1,0x4
+     638:	3c020004 	lui	v0,0x4
+     63c:	ac60169c 	sw	zero,5788(v1)
+     640:	ac4015a4 	sw	zero,5540(v0)
+     644:	3c030004 	lui	v1,0x4
+     648:	3c020004 	lui	v0,0x4
+     64c:	ac60158c 	sw	zero,5516(v1)
+     650:	ac401650 	sw	zero,5712(v0)
+     654:	3c030004 	lui	v1,0x4
+     658:	3c020004 	lui	v0,0x4
+     65c:	ac601618 	sw	zero,5656(v1)
+     660:	ac40164c 	sw	zero,5708(v0)
+     664:	3c030004 	lui	v1,0x4
+     668:	3c020004 	lui	v0,0x4
+     66c:	ac601620 	sw	zero,5664(v1)
+     670:	ac4015cc 	sw	zero,5580(v0)
+     674:	3c030004 	lui	v1,0x4
+     678:	3c020004 	lui	v0,0x4
+     67c:	ac601680 	sw	zero,5760(v1)
+     680:	ac4015fc 	sw	zero,5628(v0)
+     684:	3c030004 	lui	v1,0x4
+     688:	3c020004 	lui	v0,0x4
+     68c:	ac601600 	sw	zero,5632(v1)
+     690:	ac401588 	sw	zero,5512(v0)
+     694:	3c030004 	lui	v1,0x4
+     698:	3c020004 	lui	v0,0x4
+     69c:	ac6015a0 	sw	zero,5536(v1)
+     6a0:	ac401664 	sw	zero,5732(v0)
+     6a4:	3c030004 	lui	v1,0x4
+     6a8:	3c020004 	lui	v0,0x4
+     6ac:	ac601688 	sw	zero,5768(v1)
+     6b0:	ac401638 	sw	zero,5688(v0)
+     6b4:	3c030004 	lui	v1,0x4
+     6b8:	3c020004 	lui	v0,0x4
+     6bc:	ac601670 	sw	zero,5744(v1)
+     6c0:	ac401678 	sw	zero,5752(v0)
+     6c4:	3c030004 	lui	v1,0x4
+     6c8:	3c020004 	lui	v0,0x4
+     6cc:	ac6015e4 	sw	zero,5604(v1)
+     6d0:	ac4015ac 	sw	zero,5548(v0)
+     6d4:	3c030004 	lui	v1,0x4
+     6d8:	3c020004 	lui	v0,0x4
+     6dc:	ac601694 	sw	zero,5780(v1)
+     6e0:	ac4015e8 	sw	zero,5608(v0)
+     6e4:	3c030004 	lui	v1,0x4
+     6e8:	3c020004 	lui	v0,0x4
+     6ec:	ac6015a8 	sw	zero,5544(v1)
+     6f0:	244416ec 	addiu	a0,v0,5868
+     6f4:	3c030004 	lui	v1,0x4
+     6f8:	3c020004 	lui	v0,0x4
+     6fc:	24661760 	addiu	a2,v1,5984
+     700:	24451704 	addiu	a1,v0,5892
+     704:	3c030004 	lui	v1,0x4
+     708:	3c020004 	lui	v0,0x4
+     70c:	24631748 	addiu	v1,v1,5960
+     710:	24421704 	addiu	v0,v0,5892
+     714:	ac800000 	sw	zero,0(a0)
+     718:	24840004 	addiu	a0,a0,4
+     71c:	acc00000 	sw	zero,0(a2)
+     720:	aca00000 	sw	zero,0(a1)
+     724:	ac600000 	sw	zero,0(v1)
+     728:	24c60004 	addiu	a2,a2,4
+     72c:	24a50004 	addiu	a1,a1,4
+     730:	1482fff8 	bne	a0,v0,714 <reset+0x130>
+     734:	24630004 	addiu	v1,v1,4
+     738:	3c020004 	lui	v0,0x4
+     73c:	3c030004 	lui	v1,0x4
+     740:	2444181c 	addiu	a0,v0,6172
+     744:	3c020004 	lui	v0,0x4
+     748:	2466184c 	addiu	a2,v1,6220
+     74c:	24451834 	addiu	a1,v0,6196
+     750:	3c030004 	lui	v1,0x4
+     754:	3c020004 	lui	v0,0x4
+     758:	246317d8 	addiu	v1,v1,6104
+     75c:	24421834 	addiu	v0,v0,6196
+     760:	ac800000 	sw	zero,0(a0)
+     764:	24840004 	addiu	a0,a0,4
+     768:	acc00000 	sw	zero,0(a2)
+     76c:	aca00000 	sw	zero,0(a1)
+     770:	ac600000 	sw	zero,0(v1)
+     774:	24c60004 	addiu	a2,a2,4
+     778:	24a50004 	addiu	a1,a1,4
+     77c:	1482fff8 	bne	a0,v0,760 <reset+0x17c>
+     780:	24630004 	addiu	v1,v1,4
+     784:	3c020004 	lui	v0,0x4
+     788:	3c030004 	lui	v1,0x4
+     78c:	24421778 	addiu	v0,v0,6008
+     790:	246317d4 	addiu	v1,v1,6100
+     794:	ac400000 	sw	zero,0(v0)
+     798:	24420004 	addiu	v0,v0,4
+     79c:	1443fffd 	bne	v0,v1,794 <reset+0x1b0>
+     7a0:	00000000 	nop
+     7a4:	3c020004 	lui	v0,0x4
+     7a8:	244417f0 	addiu	a0,v0,6128
+     7ac:	3c030004 	lui	v1,0x4
+     7b0:	3c020004 	lui	v0,0x4
+     7b4:	2463171c 	addiu	v1,v1,5916
+     7b8:	2442181c 	addiu	v0,v0,6172
+     7bc:	ac800000 	sw	zero,0(a0)
+     7c0:	24840004 	addiu	a0,a0,4
+     7c4:	ac600000 	sw	zero,0(v1)
+     7c8:	1482fffc 	bne	a0,v0,7bc <reset+0x1d8>
+     7cc:	24630004 	addiu	v1,v1,4
+     7d0:	03e00008 	jr	ra
+     7d4:	00000000 	nop
+
+000007d8 <filtez>:
+     7d8:	8c830000 	lw	v1,0(a0)
+     7dc:	8ca20000 	lw	v0,0(a1)
+     7e0:	00805021 	move	t2,a0
+     7e4:	00620018 	mult	v1,v0
+     7e8:	00a04821 	move	t1,a1
+     7ec:	00003021 	move	a2,zero
+     7f0:	24080014 	li	t0,20
+     7f4:	00003812 	mflo	a3
+     7f8:	01461821 	addu	v1,t2,a2
+     7fc:	01262021 	addu	a0,t1,a2
+     800:	8c620004 	lw	v0,4(v1)
+     804:	8c850004 	lw	a1,4(a0)
+     808:	24c60004 	addiu	a2,a2,4
+     80c:	00450018 	mult	v0,a1
+     810:	00001012 	mflo	v0
+     814:	14c8fff8 	bne	a2,t0,7f8 <filtez+0x20>
+     818:	00e23821 	addu	a3,a3,v0
+     81c:	03e00008 	jr	ra
+     820:	00071383 	sra	v0,a3,0xe
+
+00000824 <filtep>:
+     824:	00041040 	sll	v0,a0,0x1
+     828:	00450018 	mult	v0,a1
+     82c:	00063040 	sll	a2,a2,0x1
+     830:	00001012 	mflo	v0
+	...
+     83c:	00c70018 	mult	a2,a3
+     840:	00003012 	mflo	a2
+     844:	00461021 	addu	v0,v0,a2
+     848:	03e00008 	jr	ra
+     84c:	000213c3 	sra	v0,v0,0xf
+
+00000850 <quantl>:
+     850:	0480001a 	bltz	a0,8bc <quantl+0x6c>
+     854:	00803821 	move	a3,a0
+     858:	3c020004 	lui	v0,0x4
+     85c:	244613f4 	addiu	a2,v0,5108
+     860:	00001821 	move	v1,zero
+     864:	0800021e 	j	878 <quantl+0x28>
+     868:	2408001e 	li	t0,30
+     86c:	24630001 	addiu	v1,v1,1
+     870:	10680009 	beq	v1,t0,898 <quantl+0x48>
+     874:	00000000 	nop
+     878:	8cc20000 	lw	v0,0(a2)
+     87c:	00000000 	nop
+     880:	00a20018 	mult	a1,v0
+     884:	00001012 	mflo	v0
+     888:	000213c3 	sra	v0,v0,0xf
+     88c:	0047102a 	slt	v0,v0,a3
+     890:	1440fff6 	bnez	v0,86c <quantl+0x1c>
+     894:	24c60004 	addiu	a2,a2,4
+     898:	0480000a 	bltz	a0,8c4 <quantl+0x74>
+     89c:	00000000 	nop
+     8a0:	3c020004 	lui	v0,0x4
+     8a4:	2442146c 	addiu	v0,v0,5228
+     8a8:	00031880 	sll	v1,v1,0x2
+     8ac:	00621821 	addu	v1,v1,v0
+     8b0:	8c620000 	lw	v0,0(v1)
+     8b4:	03e00008 	jr	ra
+     8b8:	00000000 	nop
+     8bc:	08000216 	j	858 <quantl+0x8>
+     8c0:	00043823 	negu	a3,a0
+     8c4:	3c020004 	lui	v0,0x4
+     8c8:	244214e8 	addiu	v0,v0,5352
+     8cc:	00031880 	sll	v1,v1,0x2
+     8d0:	00621821 	addu	v1,v1,v0
+     8d4:	8c620000 	lw	v0,0(v1)
+     8d8:	03e00008 	jr	ra
+     8dc:	00000000 	nop
+
+000008e0 <invqxl>:
+     8e0:	24e7ffff 	addiu	a3,a3,-1
+     8e4:	00e42007 	srav	a0,a0,a3
+     8e8:	00042080 	sll	a0,a0,0x2
+     8ec:	00862021 	addu	a0,a0,a2
+     8f0:	8c830000 	lw	v1,0(a0)
+     8f4:	00000000 	nop
+     8f8:	00a30018 	mult	a1,v1
+     8fc:	00001012 	mflo	v0
+     900:	03e00008 	jr	ra
+     904:	000213c3 	sra	v0,v0,0xf
+
+00000908 <logscl>:
+     908:	00042083 	sra	a0,a0,0x2
+     90c:	3c020004 	lui	v0,0x4
+     910:	24421314 	addiu	v0,v0,4884
+     914:	00042080 	sll	a0,a0,0x2
+     918:	00822021 	addu	a0,a0,v0
+     91c:	000519c0 	sll	v1,a1,0x7
+     920:	00651823 	subu	v1,v1,a1
+     924:	8c820000 	lw	v0,0(a0)
+     928:	000319c3 	sra	v1,v1,0x7
+     92c:	00621021 	addu	v0,v1,v0
+     930:	04400007 	bltz	v0,950 <logscl+0x48>
+     934:	28434801 	slti	v1,v0,18433
+     938:	10600003 	beqz	v1,948 <logscl+0x40>
+     93c:	00000000 	nop
+     940:	03e00008 	jr	ra
+     944:	00000000 	nop
+     948:	03e00008 	jr	ra
+     94c:	24024800 	li	v0,18432
+     950:	03e00008 	jr	ra
+     954:	00001021 	move	v0,zero
+
+00000958 <scalel>:
+     958:	00041902 	srl	v1,a0,0x4
+     95c:	3c020004 	lui	v0,0x4
+     960:	24421374 	addiu	v0,v0,4980
+     964:	3063007c 	andi	v1,v1,0x7c
+     968:	00621821 	addu	v1,v1,v0
+     96c:	000422c3 	sra	a0,a0,0xb
+     970:	00a42823 	subu	a1,a1,a0
+     974:	8c620000 	lw	v0,0(v1)
+     978:	24a50001 	addiu	a1,a1,1
+     97c:	00a21007 	srav	v0,v0,a1
+     980:	03e00008 	jr	ra
+     984:	000210c0 	sll	v0,v0,0x3
+
+00000988 <uppol2>:
+     988:	00c70018 	mult	a2,a3
+     98c:	8fa20010 	lw	v0,16(sp)
+     990:	00003812 	mflo	a3
+	...
+     99c:	00c20018 	mult	a2,v0
+     9a0:	00003012 	mflo	a2
+     9a4:	04e00002 	bltz	a3,9b0 <uppol2+0x28>
+     9a8:	00042080 	sll	a0,a0,0x2
+     9ac:	00042023 	negu	a0,a0
+     9b0:	000421c3 	sra	a0,a0,0x7
+     9b4:	04c0000b 	bltz	a2,9e4 <uppol2+0x5c>
+     9b8:	24830080 	addiu	v1,a0,128
+     9bc:	000511c0 	sll	v0,a1,0x7
+     9c0:	00451023 	subu	v0,v0,a1
+     9c4:	000211c3 	sra	v0,v0,0x7
+     9c8:	00622821 	addu	a1,v1,v0
+     9cc:	28a23001 	slti	v0,a1,12289
+     9d0:	14400006 	bnez	v0,9ec <uppol2+0x64>
+     9d4:	28a3d000 	slti	v1,a1,-12288
+     9d8:	24053000 	li	a1,12288
+     9dc:	03e00008 	jr	ra
+     9e0:	00a01021 	move	v0,a1
+     9e4:	0800026f 	j	9bc <uppol2+0x34>
+     9e8:	2483ff80 	addiu	v1,a0,-128
+     9ec:	1060fffb 	beqz	v1,9dc <uppol2+0x54>
+     9f0:	00000000 	nop
+     9f4:	08000277 	j	9dc <uppol2+0x54>
+     9f8:	2405d000 	li	a1,-12288
+
+000009fc <uppol1>:
+     9fc:	00c70018 	mult	a2,a3
+     a00:	00041200 	sll	v0,a0,0x8
+     a04:	00441023 	subu	v0,v0,a0
+     a08:	00021203 	sra	v0,v0,0x8
+     a0c:	00003012 	mflo	a2
+     a10:	04c0000d 	bltz	a2,a48 <uppol1+0x4c>
+     a14:	244300c0 	addiu	v1,v0,192
+     a18:	24023c00 	li	v0,15360
+     a1c:	00452823 	subu	a1,v0,a1
+     a20:	00a3102a 	slt	v0,a1,v1
+     a24:	10400002 	beqz	v0,a30 <uppol1+0x34>
+     a28:	00052023 	negu	a0,a1
+     a2c:	00a01821 	move	v1,a1
+     a30:	0083102a 	slt	v0,a0,v1
+     a34:	10400002 	beqz	v0,a40 <uppol1+0x44>
+     a38:	00000000 	nop
+     a3c:	00602021 	move	a0,v1
+     a40:	03e00008 	jr	ra
+     a44:	00801021 	move	v0,a0
+     a48:	08000286 	j	a18 <uppol1+0x1c>
+     a4c:	2443ff40 	addiu	v1,v0,-192
+
+00000a50 <invqah>:
+     a50:	3c020004 	lui	v0,0x4
+     a54:	24421564 	addiu	v0,v0,5476
+     a58:	00042080 	sll	a0,a0,0x2
+     a5c:	00822021 	addu	a0,a0,v0
+     a60:	8c830000 	lw	v1,0(a0)
+     a64:	00000000 	nop
+     a68:	00a30018 	mult	a1,v1
+     a6c:	00001012 	mflo	v0
+     a70:	03e00008 	jr	ra
+     a74:	000213c3 	sra	v0,v0,0xf
+
+00000a78 <logsch>:
+     a78:	3c020004 	lui	v0,0x4
+     a7c:	24421574 	addiu	v0,v0,5492
+     a80:	00042080 	sll	a0,a0,0x2
+     a84:	00822021 	addu	a0,a0,v0
+     a88:	000519c0 	sll	v1,a1,0x7
+     a8c:	00651823 	subu	v1,v1,a1
+     a90:	8c820000 	lw	v0,0(a0)
+     a94:	000319c3 	sra	v1,v1,0x7
+     a98:	00621021 	addu	v0,v1,v0
+     a9c:	04400007 	bltz	v0,abc <logsch+0x44>
+     aa0:	28435801 	slti	v1,v0,22529
+     aa4:	10600003 	beqz	v1,ab4 <logsch+0x3c>
+     aa8:	00000000 	nop
+     aac:	03e00008 	jr	ra
+     ab0:	00000000 	nop
+     ab4:	03e00008 	jr	ra
+     ab8:	24025800 	li	v0,22528
+     abc:	03e00008 	jr	ra
+     ac0:	00001021 	move	v0,zero
+
+00000ac4 <decode>:
+     ac4:	27bdffc0 	addiu	sp,sp,-64
+     ac8:	afb00018 	sw	s0,24(sp)
+     acc:	3082003f 	andi	v0,a0,0x3f
+     ad0:	3c100004 	lui	s0,0x4
+     ad4:	3c060004 	lui	a2,0x4
+     ad8:	3c050004 	lui	a1,0x4
+     adc:	afbf003c 	sw	ra,60(sp)
+     ae0:	00041983 	sra	v1,a0,0x6
+     ae4:	afbe0038 	sw	s8,56(sp)
+     ae8:	afb70034 	sw	s7,52(sp)
+     aec:	afb60030 	sw	s6,48(sp)
+     af0:	afb5002c 	sw	s5,44(sp)
+     af4:	afb40028 	sw	s4,40(sp)
+     af8:	afb30024 	sw	s3,36(sp)
+     afc:	afb20020 	sw	s2,32(sp)
+     b00:	afb1001c 	sw	s1,28(sp)
+     b04:	24a41834 	addiu	a0,a1,6196
+     b08:	ae021628 	sw	v0,5672(s0)
+     b0c:	24c51704 	addiu	a1,a2,5892
+     b10:	3c020004 	lui	v0,0x4
+     b14:	0c0001f6 	jal	7d8 <filtez>
+     b18:	ac43159c 	sw	v1,5532(v0)
+     b1c:	00408821 	move	s1,v0
+     b20:	3c030004 	lui	v1,0x4
+     b24:	3c040004 	lui	a0,0x4
+     b28:	3c050004 	lui	a1,0x4
+     b2c:	3c020004 	lui	v0,0x4
+     b30:	8c6615fc 	lw	a2,5628(v1)
+     b34:	8c871664 	lw	a3,5732(a0)
+     b38:	8ca41600 	lw	a0,5632(a1)
+     b3c:	8c451688 	lw	a1,5768(v0)
+     b40:	3c020004 	lui	v0,0x4
+     b44:	0c000209 	jal	824 <filtep>
+     b48:	ac5115ec 	sw	s1,5612(v0)
+     b4c:	3c030004 	lui	v1,0x4
+     b50:	8c651624 	lw	a1,5668(v1)
+     b54:	3c030004 	lui	v1,0x4
+     b58:	24631214 	addiu	v1,v1,4628
+     b5c:	00052880 	sll	a1,a1,0x2
+     b60:	00a32821 	addu	a1,a1,v1
+     b64:	3c170004 	lui	s7,0x4
+     b68:	8ee81660 	lw	t0,5728(s7)
+     b6c:	8ca70000 	lw	a3,0(a1)
+     b70:	8e041628 	lw	a0,5672(s0)
+     b74:	00e80018 	mult	a3,t0
+     b78:	00043083 	sra	a2,a0,0x2
+     b7c:	3c030004 	lui	v1,0x4
+     b80:	24631154 	addiu	v1,v1,4436
+     b84:	00063080 	sll	a2,a2,0x2
+     b88:	00c33021 	addu	a2,a2,v1
+     b8c:	8cd00000 	lw	s0,0(a2)
+     b90:	3c030004 	lui	v1,0x4
+     b94:	00513021 	addu	a2,v0,s1
+     b98:	3c120004 	lui	s2,0x4
+     b9c:	ac621630 	sw	v0,5680(v1)
+     ba0:	3c140004 	lui	s4,0x4
+     ba4:	00003812 	mflo	a3
+     ba8:	00073bc3 	sra	a3,a3,0xf
+     bac:	3c020004 	lui	v0,0x4
+     bb0:	02080018 	mult	s0,t0
+     bb4:	8e451638 	lw	a1,5688(s2)
+     bb8:	ac471648 	sw	a3,5704(v0)
+     bbc:	3c030004 	lui	v1,0x4
+     bc0:	ae861608 	sw	a2,5640(s4)
+     bc4:	3c020004 	lui	v0,0x4
+     bc8:	00e63021 	addu	a2,a3,a2
+     bcc:	ac461584 	sw	a2,5508(v0)
+     bd0:	3c130004 	lui	s3,0x4
+     bd4:	3c150004 	lui	s5,0x4
+     bd8:	3c160004 	lui	s6,0x4
+     bdc:	3c1e0004 	lui	s8,0x4
+     be0:	00008012 	mflo	s0
+     be4:	001083c3 	sra	s0,s0,0xf
+     be8:	0c000242 	jal	908 <logscl>
+     bec:	ac70161c 	sw	s0,5660(v1)
+     bf0:	ae421638 	sw	v0,5688(s2)
+     bf4:	00402021 	move	a0,v0
+     bf8:	0c000256 	jal	958 <scalel>
+     bfc:	24050008 	li	a1,8
+     c00:	3c030004 	lui	v1,0x4
+     c04:	3c060004 	lui	a2,0x4
+     c08:	02002021 	move	a0,s0
+     c0c:	24c51704 	addiu	a1,a2,5892
+     c10:	02118021 	addu	s0,s0,s1
+     c14:	24661834 	addiu	a2,v1,6196
+     c18:	aee21660 	sw	v0,5728(s7)
+     c1c:	0c000143 	jal	50c <upzero>
+     c20:	ae70166c 	sw	s0,5740(s3)
+     c24:	3c040004 	lui	a0,0x4
+     c28:	8e72166c 	lw	s2,5740(s3)
+     c2c:	8eb115a0 	lw	s1,5536(s5)
+     c30:	8c901688 	lw	s0,5768(a0)
+     c34:	8ec21588 	lw	v0,5512(s6)
+     c38:	3c060004 	lui	a2,0x4
+     c3c:	8cc51664 	lw	a1,5732(a2)
+     c40:	02002021 	move	a0,s0
+     c44:	02403021 	move	a2,s2
+     c48:	02203821 	move	a3,s1
+     c4c:	0c000262 	jal	988 <uppol2>
+     c50:	afa20010 	sw	v0,16(sp)
+     c54:	00402821 	move	a1,v0
+     c58:	02002021 	move	a0,s0
+     c5c:	02403021 	move	a2,s2
+     c60:	02203821 	move	a3,s1
+     c64:	3c030004 	lui	v1,0x4
+     c68:	0c00027f 	jal	9fc <uppol1>
+     c6c:	ac621664 	sw	v0,5732(v1)
+     c70:	3c040004 	lui	a0,0x4
+     c74:	8c83161c 	lw	v1,5660(a0)
+     c78:	8e861608 	lw	a2,5640(s4)
+     c7c:	3c050004 	lui	a1,0x4
+     c80:	00c33021 	addu	a2,a2,v1
+     c84:	3c030004 	lui	v1,0x4
+     c88:	246417d8 	addiu	a0,v1,6104
+     c8c:	3c030004 	lui	v1,0x4
+     c90:	8ca71600 	lw	a3,5632(a1)
+     c94:	24651748 	addiu	a1,v1,5960
+     c98:	3c030004 	lui	v1,0x4
+     c9c:	ac621688 	sw	v0,5768(v1)
+     ca0:	3c020004 	lui	v0,0x4
+     ca4:	3c030004 	lui	v1,0x4
+     ca8:	ac4715fc 	sw	a3,5628(v0)
+     cac:	3c020004 	lui	v0,0x4
+     cb0:	ac661600 	sw	a2,5632(v1)
+     cb4:	aed11588 	sw	s1,5512(s6)
+     cb8:	aeb215a0 	sw	s2,5536(s5)
+     cbc:	0c0001f6 	jal	7d8 <filtez>
+     cc0:	ac461598 	sw	a2,5528(v0)
+     cc4:	00408821 	move	s1,v0
+     cc8:	3c040004 	lui	a0,0x4
+     ccc:	3c050004 	lui	a1,0x4
+     cd0:	3c020004 	lui	v0,0x4
+     cd4:	8ca71694 	lw	a3,5780(a1)
+     cd8:	8c861670 	lw	a2,5744(a0)
+     cdc:	8fc515e8 	lw	a1,5608(s8)
+     ce0:	8c441678 	lw	a0,5752(v0)
+     ce4:	3c020004 	lui	v0,0x4
+     ce8:	0c000209 	jal	824 <filtep>
+     cec:	ac511634 	sw	s1,5684(v0)
+     cf0:	3c030004 	lui	v1,0x4
+     cf4:	8c64159c 	lw	a0,5532(v1)
+     cf8:	3c030004 	lui	v1,0x4
+     cfc:	00042880 	sll	a1,a0,0x2
+     d00:	24631564 	addiu	v1,v1,5476
+     d04:	00a32821 	addu	a1,a1,v1
+     d08:	8cb00000 	lw	s0,0(a1)
+     d0c:	3c050004 	lui	a1,0x4
+     d10:	8ca31610 	lw	v1,5648(a1)
+     d14:	3c120004 	lui	s2,0x4
+     d18:	02030018 	mult	s0,v1
+     d1c:	3c030004 	lui	v1,0x4
+     d20:	00513021 	addu	a2,v0,s1
+     d24:	8e4515a8 	lw	a1,5544(s2)
+     d28:	ac6215b8 	sw	v0,5560(v1)
+     d2c:	3c170004 	lui	s7,0x4
+     d30:	3c020004 	lui	v0,0x4
+     d34:	ac461654 	sw	a2,5716(v0)
+     d38:	3c130004 	lui	s3,0x4
+     d3c:	00008012 	mflo	s0
+     d40:	001083c3 	sra	s0,s0,0xf
+     d44:	0c00029e 	jal	a78 <logsch>
+     d48:	aef015f0 	sw	s0,5616(s7)
+     d4c:	ae4215a8 	sw	v0,5544(s2)
+     d50:	00402021 	move	a0,v0
+     d54:	0c000256 	jal	958 <scalel>
+     d58:	2405000a 	li	a1,10
+     d5c:	3c030004 	lui	v1,0x4
+     d60:	24651748 	addiu	a1,v1,5960
+     d64:	3c030004 	lui	v1,0x4
+     d68:	02002021 	move	a0,s0
+     d6c:	246617d8 	addiu	a2,v1,6104
+     d70:	02118021 	addu	s0,s0,s1
+     d74:	3c030004 	lui	v1,0x4
+     d78:	ac621610 	sw	v0,5648(v1)
+     d7c:	0c000143 	jal	50c <upzero>
+     d80:	ae70163c 	sw	s0,5692(s3)
+     d84:	3c030004 	lui	v1,0x4
+     d88:	3c040004 	lui	a0,0x4
+     d8c:	8c9115ac 	lw	s1,5548(a0)
+     d90:	8fd015e8 	lw	s0,5608(s8)
+     d94:	8e72163c 	lw	s2,5692(s3)
+     d98:	8c6215e4 	lw	v0,5604(v1)
+     d9c:	3c060004 	lui	a2,0x4
+     da0:	8cc51694 	lw	a1,5780(a2)
+     da4:	02002021 	move	a0,s0
+     da8:	02403021 	move	a2,s2
+     dac:	02203821 	move	a3,s1
+     db0:	0c000262 	jal	988 <uppol2>
+     db4:	afa20010 	sw	v0,16(sp)
+     db8:	00402821 	move	a1,v0
+     dbc:	02002021 	move	a0,s0
+     dc0:	3c030004 	lui	v1,0x4
+     dc4:	02403021 	move	a2,s2
+     dc8:	02203821 	move	a3,s1
+     dcc:	0c00027f 	jal	9fc <uppol1>
+     dd0:	ac621694 	sw	v0,5780(v1)
+     dd4:	3c040004 	lui	a0,0x4
+     dd8:	8c851654 	lw	a1,5716(a0)
+     ddc:	3c030004 	lui	v1,0x4
+     de0:	8ee415f0 	lw	a0,5616(s7)
+     de4:	8c661584 	lw	a2,5508(v1)
+     de8:	3c0d0004 	lui	t5,0x4
+     dec:	00a42821 	addu	a1,a1,a0
+     df0:	8da410f4 	lw	a0,4340(t5)
+     df4:	00c53821 	addu	a3,a2,a1
+     df8:	00c53023 	subu	a2,a2,a1
+     dfc:	00860018 	mult	a0,a2
+     e00:	25a310f4 	addiu	v1,t5,4340
+     e04:	8c680004 	lw	t0,4(v1)
+     e08:	3c040004 	lui	a0,0x4
+     e0c:	8c831678 	lw	v1,5752(a0)
+     e10:	afc215e8 	sw	v0,5608(s8)
+     e14:	3c020004 	lui	v0,0x4
+     e18:	ac431670 	sw	v1,5744(v0)
+     e1c:	3c020004 	lui	v0,0x4
+     e20:	ac5215ac 	sw	s2,5548(v0)
+     e24:	3c020004 	lui	v0,0x4
+     e28:	3c030004 	lui	v1,0x4
+     e2c:	00005812 	mflo	t3
+     e30:	3c100004 	lui	s0,0x4
+     e34:	ac4515f4 	sw	a1,5620(v0)
+     e38:	00e80018 	mult	a3,t0
+     e3c:	3c020004 	lui	v0,0x4
+     e40:	3c0f0004 	lui	t7,0x4
+     e44:	3c0e0004 	lui	t6,0x4
+     e48:	ac7115e4 	sw	s1,5604(v1)
+     e4c:	ae071698 	sw	a3,5784(s0)
+     e50:	3c030004 	lui	v1,0x4
+     e54:	244710fc 	addiu	a3,v0,4348
+     e58:	3c020004 	lui	v0,0x4
+     e5c:	ac851678 	sw	a1,5752(a0)
+     e60:	ade61658 	sw	a2,5720(t7)
+     e64:	246917f0 	addiu	t1,v1,6128
+     e68:	00005012 	mflo	t2
+     e6c:	244c114c 	addiu	t4,v0,4428
+     e70:	25c8171c 	addiu	t0,t6,5916
+     e74:	8d230000 	lw	v1,0(t1)
+     e78:	8ce40000 	lw	a0,0(a3)
+     e7c:	8d020000 	lw	v0,0(t0)
+     e80:	00640018 	mult	v1,a0
+     e84:	8ce60004 	lw	a2,4(a3)
+     e88:	24e50008 	addiu	a1,a3,8
+     e8c:	25290004 	addiu	t1,t1,4
+     e90:	25080004 	addiu	t0,t0,4
+     e94:	00a03821 	move	a3,a1
+     e98:	00001812 	mflo	v1
+     e9c:	01635821 	addu	t3,t3,v1
+     ea0:	00000000 	nop
+     ea4:	00460018 	mult	v0,a2
+     ea8:	00001012 	mflo	v0
+     eac:	14acfff1 	bne	a1,t4,e74 <decode+0x3b0>
+     eb0:	01425021 	addu	t2,t2,v0
+     eb4:	25a510f4 	addiu	a1,t5,4340
+     eb8:	3c070004 	lui	a3,0x4
+     ebc:	8ce21818 	lw	v0,6168(a3)
+     ec0:	8ca30058 	lw	v1,88(a1)
+     ec4:	3c060004 	lui	a2,0x4
+     ec8:	00430018 	mult	v0,v1
+     ecc:	8cc41744 	lw	a0,5956(a2)
+     ed0:	8ca8005c 	lw	t0,92(a1)
+     ed4:	3c030004 	lui	v1,0x4
+     ed8:	3c050004 	lui	a1,0x4
+     edc:	24c61744 	addiu	a2,a2,5956
+     ee0:	24e71818 	addiu	a3,a3,6168
+     ee4:	24a917f0 	addiu	t1,a1,6128
+     ee8:	00001012 	mflo	v0
+     eec:	004b1021 	addu	v0,v0,t3
+     ef0:	00021383 	sra	v0,v0,0xe
+     ef4:	00880018 	mult	a0,t0
+     ef8:	ac6215d8 	sw	v0,5592(v1)
+     efc:	3c020004 	lui	v0,0x4
+     f00:	00002012 	mflo	a0
+     f04:	008a2021 	addu	a0,a0,t2
+     f08:	00042383 	sra	a0,a0,0xe
+     f0c:	ac44160c 	sw	a0,5644(v0)
+     f10:	8ce2fffc 	lw	v0,-4(a3)
+     f14:	8cc3fffc 	lw	v1,-4(a2)
+     f18:	ace20000 	sw	v0,0(a3)
+     f1c:	24e7fffc 	addiu	a3,a3,-4
+     f20:	acc30000 	sw	v1,0(a2)
+     f24:	14e9fffa 	bne	a3,t1,f10 <decode+0x44c>
+     f28:	24c6fffc 	addiu	a2,a2,-4
+     f2c:	8de21658 	lw	v0,5720(t7)
+     f30:	8e031698 	lw	v1,5784(s0)
+     f34:	aca217f0 	sw	v0,6128(a1)
+     f38:	8fbf003c 	lw	ra,60(sp)
+     f3c:	8fbe0038 	lw	s8,56(sp)
+     f40:	8fb70034 	lw	s7,52(sp)
+     f44:	8fb60030 	lw	s6,48(sp)
+     f48:	8fb5002c 	lw	s5,44(sp)
+     f4c:	8fb40028 	lw	s4,40(sp)
+     f50:	8fb30024 	lw	s3,36(sp)
+     f54:	8fb20020 	lw	s2,32(sp)
+     f58:	8fb1001c 	lw	s1,28(sp)
+     f5c:	8fb00018 	lw	s0,24(sp)
+     f60:	27bd0040 	addiu	sp,sp,64
+     f64:	03e00008 	jr	ra
+     f68:	adc3171c 	sw	v1,5916(t6)
+
+00000f6c <main>:
+     f6c:	3c050000 	lui	a1,0x0
+     f70:	27bdfbc0 	addiu	sp,sp,-1088
+     f74:	24a510c8 	addiu	a1,a1,4296
+     f78:	24040004 	li	a0,4
+     f7c:	00003021 	move	a2,zero
+     f80:	00003821 	move	a3,zero
+     f84:	afbf043c 	sw	ra,1084(sp)
+     f88:	afbe0438 	sw	s8,1080(sp)
+     f8c:	afb70434 	sw	s7,1076(sp)
+     f90:	afb60430 	sw	s6,1072(sp)
+     f94:	afb5042c 	sw	s5,1068(sp)
+     f98:	afb40428 	sw	s4,1064(sp)
+     f9c:	afb30424 	sw	s3,1060(sp)
+     fa0:	afb20420 	sw	s2,1056(sp)
+     fa4:	afb1041c 	sw	s1,1052(sp)
+     fa8:	afb00418 	sw	s0,1048(sp)
+     fac:	0c000008 	jal	20 <SystemCall>
+     fb0:	27b30010 	addiu	s3,sp,16
+     fb4:	0c000179 	jal	5e4 <reset>
+     fb8:	0000b821 	move	s7,zero
+     fbc:	27be0218 	addiu	s8,sp,536
+     fc0:	3c150004 	lui	s5,0x4
+     fc4:	3c140004 	lui	s4,0x4
+     fc8:	27b60214 	addiu	s6,sp,532
+     fcc:	24040002 	li	a0,2
+     fd0:	02602821 	move	a1,s3
+     fd4:	24060003 	li	a2,3
+     fd8:	0c000008 	jal	20 <SystemCall>
+     fdc:	00003821 	move	a3,zero
+     fe0:	1040fffb 	beqz	v0,fd0 <main+0x64>
+     fe4:	24040002 	li	a0,2
+     fe8:	00008021 	move	s0,zero
+     fec:	03c08821 	move	s1,s8
+     ff0:	24120020 	li	s2,32
+     ff4:	001017c2 	srl	v0,s0,0x1f
+     ff8:	00501021 	addu	v0,v0,s0
+     ffc:	00021043 	sra	v0,v0,0x1
+    1000:	00021080 	sll	v0,v0,0x2
+    1004:	00531021 	addu	v0,v0,s3
+    1008:	8c440004 	lw	a0,4(v0)
+    100c:	0c0002b1 	jal	ac4 <decode>
+    1010:	26100002 	addiu	s0,s0,2
+    1014:	8ea215d8 	lw	v0,5592(s5)
+    1018:	8e83160c 	lw	v1,5644(s4)
+    101c:	ae220000 	sw	v0,0(s1)
+    1020:	ae230004 	sw	v1,4(s1)
+    1024:	1612fff3 	bne	s0,s2,ff4 <main+0x88>
+    1028:	26310008 	addiu	s1,s1,8
+    102c:	24020010 	li	v0,16
+    1030:	afa20214 	sw	v0,532(sp)
+    1034:	24040001 	li	a0,1
+    1038:	02c02821 	move	a1,s6
+    103c:	24060002 	li	a2,2
+    1040:	0c000008 	jal	20 <SystemCall>
+    1044:	00003821 	move	a3,zero
+    1048:	1040fffb 	beqz	v0,1038 <main+0xcc>
+    104c:	24040001 	li	a0,1
+    1050:	26f70001 	addiu	s7,s7,1
+    1054:	2ae20014 	slti	v0,s7,20
+    1058:	1440ffdd 	bnez	v0,fd0 <main+0x64>
+    105c:	24040002 	li	a0,2
+    1060:	3c050000 	lui	a1,0x0
+    1064:	24a510e0 	addiu	a1,a1,4320
+    1068:	24040004 	li	a0,4
+    106c:	00003021 	move	a2,zero
+    1070:	0c000008 	jal	20 <SystemCall>
+    1074:	00003821 	move	a3,zero
+    1078:	00002021 	move	a0,zero
+    107c:	00002821 	move	a1,zero
+    1080:	00003021 	move	a2,zero
+    1084:	0c000008 	jal	20 <SystemCall>
+    1088:	00003821 	move	a3,zero
+    108c:	1040fffb 	beqz	v0,107c <main+0x110>
+    1090:	00002021 	move	a0,zero
+    1094:	8fbf043c 	lw	ra,1084(sp)
+    1098:	8fbe0438 	lw	s8,1080(sp)
+    109c:	8fb70434 	lw	s7,1076(sp)
+    10a0:	8fb60430 	lw	s6,1072(sp)
+    10a4:	8fb5042c 	lw	s5,1068(sp)
+    10a8:	8fb40428 	lw	s4,1064(sp)
+    10ac:	8fb30424 	lw	s3,1060(sp)
+    10b0:	8fb20420 	lw	s2,1056(sp)
+    10b4:	8fb1041c 	lw	s1,1052(sp)
+    10b8:	8fb00418 	lw	s0,1048(sp)
+    10bc:	00001021 	move	v0,zero
+    10c0:	03e00008 	jr	ra
+    10c4:	27bd0440 	addiu	sp,sp,1088
