@@ -105,10 +105,10 @@ def generate_sw_pkg( yaml_r ):
 
     file_lines.append("extern ClusterInfo cluster_info[CLUSTER_NUMBER];\n\n")
     ########### Edited (Jean Pierre) #############
-    file_lines.append("unsigned int energySlavesAcc[XDIMENSION][YDIMENSION];/n")
-    file_lines.append("unsigned int energySlavesAcc_discretizado[XDIMENSION][YDIMENSION];/n")
-    file_lines.append("unsigned int energyLocalClusterAcc;/n")
-    file_lines.append("unsigned int energyClustersAcc[CLUSTER_NUMBER];/n")
+    file_lines.append("unsigned int energySlavesAcc[XDIMENSION][YDIMENSION];\n")
+    file_lines.append("unsigned int energySlavesAcc_discretizado[XDIMENSION][YDIMENSION];\n")
+    file_lines.append("unsigned int energyLocalClusterAcc;\n")
+    file_lines.append("unsigned int energyClustersAcc[CLUSTER_NUMBER];\n")
     ############## END ##############
     #Check if the list is not emply
     if static_mapping_list:

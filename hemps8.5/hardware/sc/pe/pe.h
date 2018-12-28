@@ -10,7 +10,7 @@
 #include "memory/ram.h"
 
 SC_MODULE(pe) {
-	
+
 	sc_in< bool >		clock;
 	sc_in< bool >		reset;
 	sc_signal < bool > 	clock_hold;
@@ -21,12 +21,12 @@ SC_MODULE(pe) {
 	sc_out<bool >		tx[NPORT-1];
 	sc_out<regflit >	data_out[NPORT-1];
 	sc_in<bool >		credit_i[NPORT-1];
-	
+
 	sc_in<bool >		clock_rx[NPORT-1];
 	sc_in<bool > 		rx[NPORT-1];
 	sc_in<regflit >		data_in[NPORT-1];
 	sc_out<bool >		credit_o[NPORT-1];
-	
+
 	//Dynamic Insertion of Applications
 	sc_out<bool >				ack_app;
 	sc_in<sc_uint<32> >			req_app;
@@ -96,8 +96,10 @@ SC_MODULE(pe) {
 	//pending service signal
 	sc_signal < bool > 			pending_service;
 	//router signals
-	//not reset for router 
+	//not reset for router
 	sc_signal < bool > reset_n;
+
+	sc_signal< regflit >  		total_flits; //Adicionado para funcionamento do case TOTAL_FLITS_ROUTER: adicionado no pe.cpp (Jean Pierre)
 
 	sc_signal < sc_uint <32 > > end_sim_reg;
 
@@ -118,7 +120,7 @@ SC_MODULE(pe) {
 	unsigned long int log_interaction;
 	unsigned long int instant_instructions;
 	unsigned long int aux_instant_instructions;
-	
+
 	unsigned long int logical_instant_instructions;
 	unsigned long int jump_instant_instructions;
 	unsigned long int branch_instant_instructions;
@@ -135,7 +137,7 @@ SC_MODULE(pe) {
 	FILE *fp;
 
 	//logfilegen *log;
-	
+
 	void sequential_attr();
 	void log_process();
 	void comb_assignments();
@@ -144,14 +146,14 @@ SC_MODULE(pe) {
 	void clock_stop();
 	void end_of_simulation();
 	void repo_to_mem_access();
-	
+
 	SC_HAS_PROCESS(pe);
 	pe(sc_module_name name_, regaddress address_ = 0x00) : sc_module(name_), router_address(address_) {
 
 		end_sim_reg.write(0x00000001);
 
 		shift_mem_page = (unsigned char) (log10(PAGE_SIZE_BYTES)/log10(2));
-	
+
 		cpu = new mlite_cpu("cpu", router_address);
 		cpu->clk(clock_hold);
 		cpu->reset_in(reset);
@@ -162,7 +164,7 @@ SC_MODULE(pe) {
 		cpu->mem_byte_we(cpu_mem_write_byte_enable);
 		cpu->mem_pause(cpu_mem_pause);
 		cpu->current_page(current_page);
-		
+
 		mem = new ram("ram", (unsigned int) router_address);
 		mem->clk(clock);
 		mem->enable_a(cpu_enable_ram);
@@ -250,16 +252,16 @@ SC_MODULE(pe) {
 		router->clock_rx[SOUTH](clock_rx[SOUTH]);
 		router->clock_rx[LOCAL](clock_tx_ni);
 		router->tick_counter(tick_counter);
-		
+
 		SC_METHOD(reset_n_attr);
 		sensitive << reset;
-		
+
 		SC_METHOD(sequential_attr);
 		sensitive << clock.pos() << reset.pos();
-		
+
 		SC_METHOD(log_process);
 		sensitive << clock.pos() << reset.pos();
-		
+
 		SC_METHOD(comb_assignments);
 		sensitive << cpu_mem_address << dmni_mem_address << cpu_mem_address_reg << write_enable;
 		sensitive << cpu_mem_data_write_reg << data_read << irq_mask_reg << irq_status;
@@ -268,26 +270,26 @@ SC_MODULE(pe) {
 		sensitive << cpu_set_op << cpu_set_size << cpu_set_address << cpu_set_address_2 << cpu_set_size_2 << dmni_enable_internal_ram;
 		sensitive << mem_data_read << cpu_enable_ram << cpu_mem_write_byte_enable_reg << dmni_mem_write_byte_enable;
 		sensitive << dmni_mem_data_write << ni_intr << slack_update_timer;
-		
+
 		SC_METHOD(mem_mapped_registers);
 		sensitive << cpu_mem_address_reg;
 		sensitive << tick_counter_local;
 		sensitive << data_read_ram;
 		sensitive << time_slice;
 		sensitive << irq_status;
-		
+
 		SC_METHOD(end_of_simulation);
 		sensitive << end_sim_reg;
 
 		SC_METHOD(clock_stop);
-		sensitive << clock << reset.pos();	
-		
+		sensitive << clock << reset.pos();
+
 		SC_METHOD(repo_to_mem_access);
 		sensitive << clock.pos();
 		sensitive << reset;
 
 	}
-	
+
 	public:
 		regaddress router_address;
 };

@@ -26,7 +26,7 @@
  */
 #define MIGRATION_ENABLED			1		//!< Enable or disable the migration module
 
-unsigned long int global_inst       =0;
+// unsigned long int global_inst       =0;
 unsigned long int energy_acc_local  =0;
 unsigned long int logical_inst      =0;
 unsigned long int branch_inst       =0;

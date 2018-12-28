@@ -372,6 +372,7 @@ void handle_packet() {
 	NewTask nt;
 	Application *app;
 	unsigned int task_info[MAX_TASKS_APP*4];
+	unsigned int diff_energy;
 
 	read_packet((ServiceHeader *)&p);
 
@@ -567,7 +568,7 @@ void handle_packet() {
 
 		//puts("energySlavesAcc: "); puts(itoa(energySlavesAcc[p.source_PE>>8][p.source_PE&0xFF])); puts(" "); puts(itoa(MemoryRead(TICK_COUNTER))); puts("\n");
 
-		energyLocalClusterAcc = diff_energy + energyLocalClusterAcc;
+		energyLocalClusterAcc = diff_energy + energyLocalClusterAcc;	// diff_energy usado sem inicialização
 		break;
 
 	case SLACK_TIME_REPORT:

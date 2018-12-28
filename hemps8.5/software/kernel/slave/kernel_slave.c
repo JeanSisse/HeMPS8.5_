@@ -44,7 +44,7 @@ TCB *			current;					//!< TCB pointer used to store the current task executing i
 Message 		msg_write_pipe;				//!< Message variable which is used to copy a message and send it by the NoC
 
 unsigned int counter_ticks = 500000;
-
+unsigned long int router_flits_anterior = 0;
 /** Assembles and sends a TASK_TERMINATED packet to the master kernel
  *  \param terminated_task Terminated task TCB pointer
  */
@@ -248,7 +248,8 @@ void write_local_msg_to_task(TCB * task_tcb_ptr, int msg_lenght, int * msg_data)
 
 
 void send_energy_slave(){
-	ServiceHeader * = get_service_header_slot();
+
+	ServiceHeader *p = get_service_header_slot();
 
 	read_inst();
 

@@ -39,9 +39,9 @@ void pe::repo_to_mem_access(){
 
 
 void pe::mem_mapped_registers(){
-	
+
 	sc_uint <32 > l_cpu_mem_address_reg = cpu_mem_address_reg.read();
-	
+
 	if(l_cpu_mem_address_reg.range(30,28 ) == 1){
 
 		cpu_mem_data_read.write(data_read.read());
@@ -64,6 +64,9 @@ void pe::mem_mapped_registers(){
 			case TICK_COUNTER_ADDR:
 				cpu_mem_data_read.write(tick_counter.read());
 			break;
+			case TOTAL_FLITS_ROUTER:	// Adicionado para tratamento de send_energy_slave incluido no código (Jean Pierre)
+				cpu_mem_data_read.write(total_flits.read());
+				break;
 			case REQ_APP_REG:
 				cpu_mem_data_read.write(req_app.read());
 			break;
@@ -99,7 +102,7 @@ void pe::comb_assignments(){
 
 	addr_a.write(new_mem_address.range(31, 2));
 	addr_b.write(dmni_mem_address.read()(31,2));
-	
+
 	cpu_mem_pause.write(cpu_repo_acess.read());
 	irq.write((((irq_status.read() & irq_mask_reg.read()) != 0x00)) ? 1  : 0 );
 	cpu_set_size.write((((cpu_mem_address_reg.read() == DMA_SIZE) && (write_enable.read() == 1))) ? 1  : 0 );
@@ -113,7 +116,7 @@ void pe::comb_assignments(){
 	write_enable.write(((cpu_mem_write_byte_enable_reg.read() != 0)) ? 1  : 0 );
 	cpu_enable_ram.write(((cpu_mem_address.read()(30,28 ) == 0)) ? 1  : 0 );
 	dmni_enable_internal_ram.write(((dmni_mem_address.read()(30,28 ) == 0)) ? 1  : 0 );
-	end_sim_reg.write((((cpu_mem_address_reg.read() == END_SIM) && (write_enable.read() == 1))) ? 0x00000000 : 0x00000001);	
+	end_sim_reg.write((((cpu_mem_address_reg.read() == END_SIM) && (write_enable.read() == 1))) ? 0x00000000 : 0x00000001);
 
 	if (cpu_repo_acess.read() == 1){
 		address.write(cpu_mem_address.read());
@@ -129,7 +132,7 @@ void pe::comb_assignments(){
 	l_irq_status[2] = 0; //unused
 	l_irq_status[1] = (!dmni_send_active_sig.read() && slack_update_timer.read() == SLACK_MONITOR_WINDOW) ? 1  : 0;
 	l_irq_status[0] = (!dmni_send_active_sig.read() && pending_service.read());
-	
+
 	irq_status.write(l_irq_status);
 }
 
@@ -155,11 +158,11 @@ void pe::sequential_attr(){
 
 		if(cpu_mem_pause.read() == 0) {
 			cpu_mem_address_reg.write(cpu_mem_address.read());
-			
+
 			cpu_mem_data_write_reg.write(cpu_mem_data_write.read());
-			
+
 			cpu_mem_write_byte_enable_reg.write(cpu_mem_write_byte_enable.read());
-			
+
 			if(cpu_mem_address_reg.read()==IRQ_MASK && write_enable.read()==1){
 				irq_mask_reg.write(cpu_mem_data_write_reg.read()(7,0));
 			}
@@ -262,7 +265,7 @@ void pe::sequential_attr(){
 		if ((cpu_mem_address_reg.read() == TIME_SLICE_ADDR) and (write_enable.read()==1) ) {
 			time_slice.write(cpu_mem_data_write_reg.read());
   		}
-  		
+
 		if (cpu_mem_address_reg.read() == ACK_APP_REG) {
 			ack_app.write(1);
 		} else if (req_app.read()[31] == 0) {
@@ -285,7 +288,7 @@ void pe::end_of_simulation(){
 void pe::log_process(){
 	if (reset.read() == 1) {
 		log_interaction=1;
-		instant_instructions = 0;		
+		instant_instructions = 0;
 		aux_instant_instructions = 0;
 
 		logical_instant_instructions = 0;
@@ -302,20 +305,20 @@ void pe::log_process(){
 	} else {
 
 		if(tick_counter.read() == 100000*log_interaction) {
-			
+
 
 			fp = fopen ("log_tasks.txt", "a+");
-			
+
 			aux_instant_instructions = cpu->global_inst - instant_instructions;
 
 			sprintf(aux, "%d,%lu,%lu,%lu\n",  (int)router_address,cpu->global_inst,aux_instant_instructions,100000*log_interaction);
 
 			instant_instructions = cpu->global_inst;
 
-		
+
 			fprintf(fp,"%s",aux);
-		
-			fclose(fp); 
+
+			fclose(fp);
 			fp = NULL;
 
 
@@ -327,7 +330,7 @@ void pe::log_process(){
 			aux_instant_instructions = cpu->logical_inst - logical_instant_instructions;
 
 			fprintf(fp,"%lu ",aux_instant_instructions);
-			
+
 			logical_instant_instructions = cpu->logical_inst;
 
 			aux_instant_instructions = cpu->jump_inst - jump_instant_instructions;
@@ -381,14 +384,14 @@ void pe::log_process(){
 			aux_instant_instructions = cpu->mult_div_inst - mult_div_instant_instructions;
 
 			fprintf(fp,"%lu ",aux_instant_instructions);
-			
+
 			mult_div_instant_instructions = cpu->mult_div_inst;
 
 			fprintf(fp,"%lu",100000*log_interaction);
 			fprintf(fp,"\n");
-		
-		
-			fclose(fp); 
+
+
+			fclose(fp);
 			fp = NULL;
 
 
@@ -420,4 +423,3 @@ void pe::clock_stop(){
 	clock_hold.write(clock and clock_aux);
 
 }
-
