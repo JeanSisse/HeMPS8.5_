@@ -246,7 +246,7 @@ void write_local_msg_to_task(TCB * task_tcb_ptr, int msg_lenght, int * msg_data)
 	task_tcb_ptr->scheduling_ptr->waiting_msg = 0;
 }
 
-
+// Função adicionado para gerenciamento das energias dos PEs slaves (Jean Pierre)
 void send_energy_slave(){
 
 	ServiceHeader *p = get_service_header_slot();

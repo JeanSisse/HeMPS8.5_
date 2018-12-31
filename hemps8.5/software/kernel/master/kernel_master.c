@@ -525,7 +525,7 @@ void handle_packet() {
 
 		break;
 
-	case ENERGY_SLAVE:
+	case ENERGY_SLAVE: // Adicionado para tratar energias dos PEs slaves (Jean Pierre)
 		if(p.energy_acc > 2340000*5){
 			energySlavesAcc_discretizado[p.source_PE >> 8][p.source_PE & 0xFF] = 10;
 		}

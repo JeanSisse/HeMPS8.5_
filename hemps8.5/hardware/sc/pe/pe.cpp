@@ -64,9 +64,9 @@ void pe::mem_mapped_registers(){
 			case TICK_COUNTER_ADDR:
 				cpu_mem_data_read.write(tick_counter.read());
 			break;
-			case TOTAL_FLITS_ROUTER:	// Adicionado para tratamento de send_energy_slave incluido no código (Jean Pierre)
-				cpu_mem_data_read.write(total_flits.read());
-				break;
+			// case TOTAL_FLITS_ROUTER:	// Adicionado para tratamento de send_energy_slave incluido no código (Jean Pierre)
+			// 	cpu_mem_data_read.write(total_flits.read());
+			// 	break;
 			case REQ_APP_REG:
 				cpu_mem_data_read.write(req_app.read());
 			break;
