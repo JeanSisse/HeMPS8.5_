@@ -562,7 +562,7 @@ void handle_packet() {
 		energySlavesAcc[p.source_PE>>8][p.source_PE&0xFF] = p.energy_acc;
 
 		//puts("p.energy_acc\n"); puts(itoa(p.energy_acc)); puts("\n");
-
+	
 		//count_receive_power++;
 		//puts("count_receive_power : "); puts(itoa(count_receive_power)); puts(" ");puts(itoa(p.source_PE>>8)); puts(" ");puts(itoa(p.source_PE&0xFF)); puts(" "); puts(itoa(p.energy_acc)); puts("\n");
 

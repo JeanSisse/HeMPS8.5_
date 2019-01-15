@@ -83,7 +83,7 @@ typedef struct {
 		unsigned int initial_address;
 		unsigned int program_counter;
 		unsigned int utilization;
-		unsigned int energy_acc;
+		unsigned int energy_acc;		//Adicionado para tratar energias dos PEs slaves (Jean Pierre)
 	};
 
 	//Add new variables here ...

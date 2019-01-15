@@ -739,13 +739,14 @@ void Scheduler() {
 	Scheduling * scheduled;
 	unsigned int scheduler_call_time;
 
+// **********Trecho adicionado para tratamento de energy_slave (Jean Pierre)*****
 	if((MemoryRead(TICK_COUNTER)) >= counter_ticks){
 		counter_ticks += 500000;
 		send_energy_slave();
 		puts("energy_acc_local (k_slave): ");
 		puts(itoa(energy_acc_local)); puts(" "); puts(itoa(MemoryRead(TICK_COUNTER))); puts("\n");
 	}
-
+// ******************************************
 	scheduler_call_time = MemoryRead(TICK_COUNTER);
 
 	MemoryWrite(SCHEDULING_REPORT, SCHEDULER);

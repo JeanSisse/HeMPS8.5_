@@ -31,7 +31,7 @@ SC_MODULE_EXPORT(mlite_cpu);
 void mlite_cpu::mlite() {
 
 	pc_count = 0;
-	
+
 	logical_inst				= 0;
 	jump_inst				= 0;
 	branch_inst				= 0;
@@ -39,21 +39,21 @@ void mlite_cpu::mlite() {
 	other_inst				= 0;
 	arith_inst				= 0;
 	load_inst				= 0;
-	shift_inst				= 0;	
-	nop_inst				= 0;	
+	shift_inst				= 0;
+	nop_inst				= 0;
 	mult_div_inst				= 0;
-	
+
 	/* Instructions for PAGE 0 (KERNEL) */
 	global_inst_kernel			= 0;
 	logical_inst_kernel			= 0;
-	branch_inst_kernel			= 0;	
+	branch_inst_kernel			= 0;
 	jump_inst_kernel			= 0;
 	move_inst_kernel     			= 0;
 	other_inst_kernel 			= 0;
 	arith_inst_kernel    			= 0;
 	load_inst_kernel     			= 0;
-	shift_inst_kernel    			= 0;	
-	nop_inst_kernel    			= 0;	
+	shift_inst_kernel    			= 0;
+	nop_inst_kernel    			= 0;
 	mult_div_inst_kernel    		= 0;
 
 	/* Instructions for PAGES different from 0 (TASKS) */
@@ -65,11 +65,11 @@ void mlite_cpu::mlite() {
 	other_inst_tasks   		= 0;
 	arith_inst_tasks    		= 0;
 	load_inst_tasks    		= 0;
-	shift_inst_tasks     		= 0;	
-	nop_inst_tasks     		= 0;	
+	shift_inst_tasks     		= 0;
+	nop_inst_tasks     		= 0;
 	mult_div_inst_tasks     	= 0;
-  
-  
+
+
 	for(;;) {
 
 		current_page.write(page>>shift);
@@ -161,17 +161,17 @@ void mlite_cpu::mlite() {
 						case 0x00:/*SLL*/
 							wait(1);
 							r[rd]=r[rt]<<re;
-							
+
 							shift_inst_kernel=(page != 0? shift_inst_kernel : shift_inst_kernel + 1 );
 							shift_inst_tasks=(page != 0? shift_inst_tasks + 1  : shift_inst_tasks );
-							 
-							 
+
+
 						break;
 
 						case 0x02:/*SRL*/
 							wait(1);
 							r[rd]=u[rt]>>re;
-							
+
 							shift_inst_kernel=(page != 0? shift_inst_kernel : shift_inst_kernel + 1 );
 							shift_inst_tasks=(page != 0? shift_inst_tasks + 1  : shift_inst_tasks );
 
@@ -180,7 +180,7 @@ void mlite_cpu::mlite() {
 						case 0x03:/*SRA*/
 							wait(1);
 							r[rd]=r[rt]>>re;
-							
+
 							shift_inst_kernel=(page != 0? shift_inst_kernel : shift_inst_kernel + 1 );
 							shift_inst_tasks=(page != 0? shift_inst_tasks + 1  : shift_inst_tasks );
 
@@ -189,7 +189,7 @@ void mlite_cpu::mlite() {
 						case 0x04:/*SLLV*/
 							wait(1);
 							r[rd]=r[rt]<<r[rs];
-							
+
 							shift_inst_kernel=(page != 0? shift_inst_kernel : shift_inst_kernel + 1 );
 							shift_inst_tasks=(page != 0? shift_inst_tasks + 1  : shift_inst_tasks );
 
@@ -198,7 +198,7 @@ void mlite_cpu::mlite() {
 						case 0x06:/*SRLV*/
 							wait(1);
 							r[rd]=u[rt]>>r[rs];
-							
+
 							shift_inst_kernel=(page != 0? shift_inst_kernel : shift_inst_kernel + 1 );
 							shift_inst_tasks=(page != 0? shift_inst_tasks + 1  : shift_inst_tasks );
 
@@ -207,7 +207,7 @@ void mlite_cpu::mlite() {
 						case 0x07:/*SRAV*/
 							wait(1);
 							r[rd]=r[rt]>>r[rs];
-							
+
 							shift_inst_kernel=(page != 0? shift_inst_kernel : shift_inst_kernel + 1 );
 							shift_inst_tasks=(page != 0? shift_inst_tasks + 1  : shift_inst_tasks );
 
@@ -219,10 +219,10 @@ void mlite_cpu::mlite() {
 							state->pc |= page;
 							mem_address.write(state->pc);
 							wait(1);
-							
+
 							jump_inst_kernel=(page != 0? jump_inst_kernel : jump_inst_kernel + 1 );
 							jump_inst_tasks=(page != 0? jump_inst_tasks + 1  : jump_inst_tasks );
-							
+
 						break;
 
 						case 0x09:/*JALR*/
@@ -232,7 +232,7 @@ void mlite_cpu::mlite() {
 							state->pc |= page;
 							mem_address.write(state->pc);
 							wait(1);
-							
+
 							jump_inst_kernel=(page != 0? jump_inst_kernel : jump_inst_kernel + 1 );
 							jump_inst_tasks=(page != 0? jump_inst_tasks + 1  : jump_inst_tasks );
 
@@ -242,7 +242,7 @@ void mlite_cpu::mlite() {
 							wait(1);
 							if ( !r[rt] )
 								r[rd] = r[rs];
-								
+
 							move_inst_kernel=(page != 0? move_inst_kernel : move_inst_kernel + 1 );
 							move_inst_tasks=(page != 0? move_inst_tasks + 1  : move_inst_tasks );
 
@@ -252,7 +252,7 @@ void mlite_cpu::mlite() {
 							wait(1);
 							if ( r[rt] )
 								r[rd] = r[rs];
-								
+
 							move_inst_kernel=(page != 0? move_inst_kernel : move_inst_kernel + 1 );
 							move_inst_tasks=(page != 0? move_inst_tasks + 1  : move_inst_tasks );
 
@@ -260,21 +260,21 @@ void mlite_cpu::mlite() {
 
 						case 0x0c:/*SYSCALL*/
 							state->epc = state->pc;
-							state->pc = 0x44;							
+							state->pc = 0x44;
 							page = 0;
 							current_page.write(page>>shift);
 							mem_address.write(state->pc);
 							wait(1);
 							intr_enable = false;
-										
+
 							other_inst_kernel=(page != 0? other_inst_kernel : other_inst_kernel + 1 );
 							other_inst_tasks=(page != 0? other_inst_tasks + 1  : other_inst_tasks );
-							
+
 						break;
 
 						case 0x0d:/*BREAK*/
 							wait(1);
-							
+
 							other_inst_kernel=(page != 0? other_inst_kernel : other_inst_kernel + 1 );
 							other_inst_tasks=(page != 0? other_inst_tasks + 1  : other_inst_tasks );
 
@@ -282,7 +282,7 @@ void mlite_cpu::mlite() {
 
 						case 0x0f:/*SYNC*/
 							wait(1);
-							
+
 							other_inst_kernel=(page != 0? other_inst_kernel : other_inst_kernel + 1 );
 							other_inst_tasks=(page != 0? other_inst_tasks + 1  : other_inst_tasks );
 
@@ -291,7 +291,7 @@ void mlite_cpu::mlite() {
 						case 0x10:/*MFHI*/
 							wait(1);
 							r[rd] = state->hi;
-							
+
 							move_inst_kernel=(page != 0? move_inst_kernel : move_inst_kernel + 1 );
 							move_inst_tasks=(page != 0? move_inst_tasks + 1  : move_inst_tasks );
 
@@ -300,7 +300,7 @@ void mlite_cpu::mlite() {
 						case 0x11:/*MTHI*/
 							wait(1);
 							state->hi = r[rs];
-							
+
 							move_inst_kernel=(page != 0? move_inst_kernel : move_inst_kernel + 1 );
 							move_inst_tasks=(page != 0? move_inst_tasks + 1  : move_inst_tasks );
 
@@ -309,7 +309,7 @@ void mlite_cpu::mlite() {
 						case 0x12:/*MFLO*/
 							wait(1);
 							r[rd] = state->lo;
-							
+
 							move_inst_kernel=(page != 0? move_inst_kernel : move_inst_kernel + 1 );
 							move_inst_tasks=(page != 0? move_inst_tasks + 1  : move_inst_tasks );
 
@@ -318,10 +318,10 @@ void mlite_cpu::mlite() {
 						case 0x13:/*MTLO*/
 							wait(1);
 							state->lo = r[rs];
-							
+
 							move_inst_kernel=(page != 0? move_inst_kernel : move_inst_kernel + 1 );
 							move_inst_tasks=(page != 0? move_inst_tasks + 1  : move_inst_tasks );
-							
+
 						break;
 
 						case 0x18:/*MULT*/
@@ -337,7 +337,7 @@ void mlite_cpu::mlite() {
 							//result = r[rs] * r[rt];
 							//state->hi = result.range(63,32);
 							//state->lo = result.range(31,0);
-							
+
 							mult_div_inst_kernel=(page != 0? mult_div_inst_kernel : mult_div_inst_kernel + 1 );
 							mult_div_inst_tasks=(page != 0? mult_div_inst_tasks + 1  : mult_div_inst_tasks );
 
@@ -357,7 +357,7 @@ void mlite_cpu::mlite() {
 							//result = u[rs] * u[rt];
 							//state->hi = result.range(63,32);
 							//state->lo = result.range(31,0);
-							
+
 							mult_div_inst_kernel=(page != 0? mult_div_inst_kernel : mult_div_inst_kernel + 1 );
 							mult_div_inst_tasks=(page != 0? mult_div_inst_tasks + 1  : mult_div_inst_tasks );
 
@@ -370,15 +370,15 @@ void mlite_cpu::mlite() {
 							prefetched_opcode = mem_data_r.read();
 							mem_address.write(state->pc);
 							wait(4);
-							
+
 							state->lo = (r[rt]>0) ? r[rs] / r[rt] : 0;
 							state->hi = (r[rt]>0) ? r[rs] % r[rt] : r[rs];
-					//		state->lo = r[rs] / r[rt];						
+					//		state->lo = r[rs] / r[rt];
 					//		state->hi = r[rs] % r[rt];
-					
+
 							mult_div_inst_kernel=(page != 0? mult_div_inst_kernel : mult_div_inst_kernel + 1 );
 							mult_div_inst_tasks=(page != 0? mult_div_inst_tasks + 1  : mult_div_inst_tasks );
-							
+
 						break;
 
 						case 0x1b:/*DIVU*/
@@ -391,7 +391,7 @@ void mlite_cpu::mlite() {
 
 							state->lo = u[rs] / u[rt];
 							state->hi = u[rs] % u[rt];
-							
+
 							mult_div_inst_kernel=(page != 0? mult_div_inst_kernel : mult_div_inst_kernel + 1 );
 							mult_div_inst_tasks=(page != 0? mult_div_inst_tasks + 1  : mult_div_inst_tasks );
 
@@ -400,7 +400,7 @@ void mlite_cpu::mlite() {
 						case 0x20:/*ADD*/
 							wait(1);
 							r[rd] = r[rs] + r[rt];
-							
+
 							arith_inst_kernel=(page != 0? arith_inst_kernel : arith_inst_kernel + 1 );
 							arith_inst_tasks=(page != 0? arith_inst_tasks + 1  : arith_inst_tasks );
 
@@ -409,7 +409,7 @@ void mlite_cpu::mlite() {
 						case 0x21:/*ADDU*/
 							wait(1);
 							r[rd] = r[rs] + r[rt];
-							
+
 							arith_inst_kernel=(page != 0? arith_inst_kernel : arith_inst_kernel + 1 );
 							arith_inst_tasks=(page != 0? arith_inst_tasks + 1  : arith_inst_tasks );
 
@@ -418,7 +418,7 @@ void mlite_cpu::mlite() {
 						case 0x22:/*SUB*/
 							wait(1);
 							r[rd] = r[rs] - r[rt];
-							
+
 							arith_inst_kernel=(page != 0? arith_inst_kernel : arith_inst_kernel + 1 );
 							arith_inst_tasks=(page != 0? arith_inst_tasks + 1  : arith_inst_tasks );
 
@@ -427,7 +427,7 @@ void mlite_cpu::mlite() {
 						case 0x23:/*SUBU*/
 							wait(1);
 							r[rd] = r[rs] - r[rt];
-							
+
 							arith_inst_kernel=(page != 0? arith_inst_kernel : arith_inst_kernel + 1 );
 							arith_inst_tasks=(page != 0? arith_inst_tasks + 1  : arith_inst_tasks );
 
@@ -436,16 +436,16 @@ void mlite_cpu::mlite() {
 						case 0x24:/*AND*/
 							wait(1);
 							r[rd] = r[rs] & r[rt];
-							
+
 							logical_inst_kernel=(page != 0? logical_inst_kernel : logical_inst_kernel + 1 );
 							logical_inst_tasks=(page != 0? logical_inst_tasks + 1  : logical_inst_tasks );
-							
+
 						break;
 
 						case 0x25:/*OR*/
 							wait(1);
 							r[rd] = r[rs] | r[rt];
-							
+
 							logical_inst_kernel=(page != 0? logical_inst_kernel : logical_inst_kernel + 1 );
 							logical_inst_tasks=(page != 0? logical_inst_tasks + 1  : logical_inst_tasks );
 
@@ -454,7 +454,7 @@ void mlite_cpu::mlite() {
 						case 0x26:/*XOR*/
 							wait(1);
 							r[rd] = r[rs] ^ r[rt];
-							
+
 							logical_inst_kernel=(page != 0? logical_inst_kernel : logical_inst_kernel + 1 );
 							logical_inst_tasks=(page != 0? logical_inst_tasks + 1  : logical_inst_tasks );
 
@@ -463,7 +463,7 @@ void mlite_cpu::mlite() {
 						case 0x27:/*NOR*/
 							wait(1);
 							r[rd] = ~(r[rs] | r[rt]);
-							
+
 							logical_inst_kernel=(page != 0? logical_inst_kernel : logical_inst_kernel + 1 );
 							logical_inst_tasks=(page != 0? logical_inst_tasks + 1  : logical_inst_tasks );
 
@@ -472,7 +472,7 @@ void mlite_cpu::mlite() {
 						case 0x2a:/*SLT*/
 							wait(1);
 							r[rd]= (r[rs] < r[rt]);
-							
+
 							arith_inst_kernel=(page != 0? arith_inst_kernel : arith_inst_kernel + 1 );
 							arith_inst_tasks=(page != 0? arith_inst_tasks + 1  : arith_inst_tasks );
 
@@ -481,7 +481,7 @@ void mlite_cpu::mlite() {
 						case 0x2b:/*SLTU*/
 							wait(1);
 							r[rd] = (u[rs] < u[rt]);
-							
+
 							arith_inst_kernel=(page != 0? arith_inst_kernel : arith_inst_kernel + 1 );
 							arith_inst_tasks=(page != 0? arith_inst_tasks + 1  : arith_inst_tasks );
 
@@ -490,45 +490,45 @@ void mlite_cpu::mlite() {
 						case 0x2d:/*DADDU*/
 							wait(1);
 							r[rd] = r[rs] + u[rt];
-							
+
 							arith_inst_kernel=(page != 0? arith_inst_kernel : arith_inst_kernel + 1 );
 							arith_inst_tasks=(page != 0? arith_inst_tasks + 1  : arith_inst_tasks );
 
 						break;
 
-						case 0x31:/*TGEU*/ 
-						
-							wait(1); 
+						case 0x31:/*TGEU*/
+
+							wait(1);
 							other_inst_kernel=(page != 0? other_inst_kernel : other_inst_kernel + 1 );
 							other_inst_tasks=(page != 0? other_inst_tasks + 1  : other_inst_tasks );
 
 						break;
-						
-						case 0x32:/*TLT*/  
-						
-							wait(1); 
-							other_inst_kernel=(page != 0? other_inst_kernel : other_inst_kernel + 1 );
-							other_inst_tasks=(page != 0? other_inst_tasks + 1  : other_inst_tasks );
-							
-						break;
-						
-						case 0x33:/*TLTU*/ 
-						
-							wait(1); 
-							other_inst_kernel=(page != 0? other_inst_kernel : other_inst_kernel + 1 );
-							other_inst_tasks=(page != 0? other_inst_tasks + 1  : other_inst_tasks );
-							
-						break;
-						case 0x34:/*TEQ*/  
-						
-							wait(1); 
+
+						case 0x32:/*TLT*/
+
+							wait(1);
 							other_inst_kernel=(page != 0? other_inst_kernel : other_inst_kernel + 1 );
 							other_inst_tasks=(page != 0? other_inst_tasks + 1  : other_inst_tasks );
 
 						break;
-						case 0x36:/*TNE*/ 
-						 
-							wait(1); 
+
+						case 0x33:/*TLTU*/
+
+							wait(1);
+							other_inst_kernel=(page != 0? other_inst_kernel : other_inst_kernel + 1 );
+							other_inst_tasks=(page != 0? other_inst_tasks + 1  : other_inst_tasks );
+
+						break;
+						case 0x34:/*TEQ*/
+
+							wait(1);
+							other_inst_kernel=(page != 0? other_inst_kernel : other_inst_kernel + 1 );
+							other_inst_tasks=(page != 0? other_inst_tasks + 1  : other_inst_tasks );
+
+						break;
+						case 0x36:/*TNE*/
+
+							wait(1);
 							other_inst_kernel=(page != 0? other_inst_kernel : other_inst_kernel + 1 );
 							other_inst_tasks=(page != 0? other_inst_tasks + 1  : other_inst_tasks );
 
@@ -549,7 +549,7 @@ void mlite_cpu::mlite() {
 								mem_address.write(state->pc);
 							}
 							wait(1);
-							
+
 							branch_inst_kernel=(page != 0? branch_inst_kernel : branch_inst_kernel + 1 );
 							branch_inst_tasks=(page != 0? branch_inst_tasks + 1  : branch_inst_tasks );
 
@@ -562,7 +562,7 @@ void mlite_cpu::mlite() {
 								mem_address.write(state->pc);
 							}
 							wait(1);
-							
+
 							branch_inst_kernel=(page != 0? branch_inst_kernel : branch_inst_kernel + 1 );
 							branch_inst_tasks=(page != 0? branch_inst_tasks + 1  : branch_inst_tasks );
 
@@ -576,7 +576,7 @@ void mlite_cpu::mlite() {
 								mem_address.write(state->pc);
 							}
 							wait(1);
-							
+
 							branch_inst_kernel=(page != 0? branch_inst_kernel : branch_inst_kernel + 1 );
 							branch_inst_tasks=(page != 0? branch_inst_tasks + 1  : branch_inst_tasks );
 
@@ -589,7 +589,7 @@ void mlite_cpu::mlite() {
 								mem_address.write(state->pc);
 							}
 							wait(1);
-							
+
 							branch_inst_kernel=(page != 0? branch_inst_kernel : branch_inst_kernel + 1 );
 							branch_inst_tasks=(page != 0? branch_inst_tasks + 1  : branch_inst_tasks );
 
@@ -603,7 +603,7 @@ void mlite_cpu::mlite() {
 								mem_address.write(state->pc);
 							}
 							wait(1);
-							
+
 							branch_inst_kernel=(page != 0? branch_inst_kernel : branch_inst_kernel + 1 );
 							branch_inst_tasks=(page != 0? branch_inst_tasks + 1  : branch_inst_tasks );
 
@@ -616,7 +616,7 @@ void mlite_cpu::mlite() {
 								mem_address.write(state->pc);
 							}
 							wait(1);
-							
+
 							branch_inst_kernel=(page != 0? branch_inst_kernel : branch_inst_kernel + 1 );
 							branch_inst_tasks=(page != 0? branch_inst_tasks + 1  : branch_inst_tasks );
 
@@ -630,7 +630,7 @@ void mlite_cpu::mlite() {
 								mem_address.write(state->pc);
 							}
 							wait(1);
-							
+
 							branch_inst_kernel=(page != 0? branch_inst_kernel : branch_inst_kernel + 1 );
 							branch_inst_tasks=(page != 0? branch_inst_tasks + 1  : branch_inst_tasks );
 
@@ -643,7 +643,7 @@ void mlite_cpu::mlite() {
 								mem_address.write(state->pc);
 							}
 							wait(1);
-							
+
 							branch_inst_kernel=(page != 0? branch_inst_kernel : branch_inst_kernel + 1 );
 							branch_inst_tasks=(page != 0? branch_inst_tasks + 1  : branch_inst_tasks );
 
@@ -662,7 +662,7 @@ void mlite_cpu::mlite() {
 					state->pc |= page;				// Adds the page number.
 					mem_address.write(state->pc);
 					wait(1);
-					
+
 					jump_inst_kernel=(page != 0? jump_inst_kernel : jump_inst_kernel + 1 );
 					jump_inst_tasks=(page != 0? jump_inst_tasks + 1  : jump_inst_tasks );
 
@@ -674,7 +674,7 @@ void mlite_cpu::mlite() {
 					state->pc |= page;				// Adds the page number.
 					mem_address.write(state->pc);
 					wait(1);
-					
+
 					jump_inst_kernel=(page != 0? jump_inst_kernel : jump_inst_kernel + 1 );
 					jump_inst_tasks=(page != 0? jump_inst_tasks + 1  : jump_inst_tasks );
 
@@ -687,7 +687,7 @@ void mlite_cpu::mlite() {
 						mem_address.write(state->pc);
 					}
 					wait(1);
-					
+
 					branch_inst_kernel=(page != 0? branch_inst_kernel : branch_inst_kernel + 1 );
 					branch_inst_tasks=(page != 0? branch_inst_tasks + 1  : branch_inst_tasks );
 
@@ -700,7 +700,7 @@ void mlite_cpu::mlite() {
 						mem_address.write(state->pc);
 					}
 					wait(1);
-					
+
 					branch_inst_kernel=(page != 0? branch_inst_kernel : branch_inst_kernel + 1 );
 					branch_inst_tasks=(page != 0? branch_inst_tasks + 1  : branch_inst_tasks );
 
@@ -713,7 +713,7 @@ void mlite_cpu::mlite() {
 						mem_address.write(state->pc);
 					}
 					wait(1);
-					
+
 					branch_inst_kernel=(page != 0? branch_inst_kernel : branch_inst_kernel + 1 );
 					branch_inst_tasks=(page != 0? branch_inst_tasks + 1  : branch_inst_tasks );
 
@@ -726,7 +726,7 @@ void mlite_cpu::mlite() {
 						mem_address.write(state->pc);
 					}
 					wait(1);
-					
+
 					branch_inst_kernel=(page != 0? branch_inst_kernel : branch_inst_kernel + 1 );
 					branch_inst_tasks=(page != 0? branch_inst_tasks + 1  : branch_inst_tasks );
 
@@ -735,16 +735,16 @@ void mlite_cpu::mlite() {
 				case 0x08:/*ADDI*/
 					wait(1);
 					r[rt] = r[rs] + (short)imm;
-					
+
 					arith_inst_kernel=(page != 0? arith_inst_kernel : arith_inst_kernel + 1 );
 					arith_inst_tasks=(page != 0? arith_inst_tasks + 1  : arith_inst_tasks );
-					
+
 				break;
 
 				case 0x09:/*ADDIU*/
 					wait(1);
 					u[rt] = u[rs] + (short)imm;
-					
+
 					arith_inst_kernel=(page != 0? arith_inst_kernel : arith_inst_kernel + 1 );
 					arith_inst_tasks=(page != 0? arith_inst_tasks + 1  : arith_inst_tasks );
 
@@ -753,7 +753,7 @@ void mlite_cpu::mlite() {
 				case 0x0a:/*SLTI*/
 					wait(1);
 					r[rt] = r[rs] < (short)imm;
-					
+
 					arith_inst_kernel=(page != 0? arith_inst_kernel : arith_inst_kernel + 1 );
 					arith_inst_tasks=(page != 0? arith_inst_tasks + 1  : arith_inst_tasks );
 
@@ -762,7 +762,7 @@ void mlite_cpu::mlite() {
 				case 0x0b:/*SLTIU*/
 					wait(1);
 					u[rt] = u[rs] < (unsigned int)(short)imm;
-					
+
 					arith_inst_kernel=(page != 0? arith_inst_kernel : arith_inst_kernel + 1 );
 					arith_inst_tasks=(page != 0? arith_inst_tasks + 1  : arith_inst_tasks );
 
@@ -771,16 +771,16 @@ void mlite_cpu::mlite() {
 				case 0x0c:/*ANDI*/
 					wait(1);
 					r[rt] = r[rs] & imm;
-					
+
 					logical_inst_kernel=(page != 0? logical_inst_kernel : logical_inst_kernel + 1 );
 					logical_inst_tasks=(page != 0? logical_inst_tasks + 1  : logical_inst_tasks );
-					
+
 				break;
 
 				case 0x0d:/*ORI*/
 					wait(1);
 					r[rt] = r[rs] | imm;
-					
+
 					logical_inst_kernel=(page != 0? logical_inst_kernel : logical_inst_kernel + 1 );
 					logical_inst_tasks=(page != 0? logical_inst_tasks + 1  : logical_inst_tasks );
 
@@ -789,7 +789,7 @@ void mlite_cpu::mlite() {
 				case 0x0e:/*XORI*/
 					wait(1);
 					r[rt] = r[rs] ^ imm;
-					
+
 					logical_inst_kernel=(page != 0? logical_inst_kernel : logical_inst_kernel + 1 );
 					logical_inst_tasks=(page != 0? logical_inst_tasks + 1  : logical_inst_tasks );
 
@@ -799,7 +799,7 @@ void mlite_cpu::mlite() {
 				case 0x0f:/*LUI*/
 					wait(1);
 					r[rt] = (imm<<16);
-					
+
 					arith_inst_kernel=(page != 0? arith_inst_kernel : arith_inst_kernel + 1 );
 					arith_inst_tasks=(page != 0? arith_inst_tasks + 1  : arith_inst_tasks );
 
@@ -807,10 +807,10 @@ void mlite_cpu::mlite() {
 
 				case 0x10:/*COP0*/
 					wait(1);
-					move_inst_kernel=(page != 0? move_inst_kernel : move_inst_kernel + 1 );	
+					move_inst_kernel=(page != 0? move_inst_kernel : move_inst_kernel + 1 );
 					move_inst_tasks=(page != 0? move_inst_tasks + 1  : move_inst_tasks );
-							
-					if ( opcode & (1<<23) )	{/*MTC0*/
+
+					if ( opcode & (1<<23) )	{/*MTC0 (move to Copoprocessor 0)*/
 						switch (rd) {
 							case 10:
 								page = r[rt];
@@ -822,18 +822,49 @@ void mlite_cpu::mlite() {
 
 							case 14:
 								state->epc = r[rt];
-							break;							
-							
+							break;
+
 							case 16:
 								r[rt] = global_inst;
 							break;
-
+					/***************operações adicionados (Jean Pierre)****************/
+							case 17:
+								r[rt] = logical_inst;
+							break;
+							case 18:
+								r[rt] = branch_inst;
+							break;
+							case 19:
+								r[rt] = jump_inst;
+							break;
+							case 20:
+								r[rt] = move_inst;
+							break;
+							case 21:
+								r[rt] = other_inst;
+							break;
+							case 22:
+								r[rt] = arith_inst;
+							break;
+							case 23:
+								r[rt] = load_inst;
+							break;
+							case 24:
+								r[rt] = shift_inst;
+							break;
+							case 25:
+								r[rt] = nop_inst;
+							break;
+							case 26:
+								r[rt] = mult_div_inst;
+							break;
+					/************FIM**********************/
 							default:
 								printf("MTC0: reg %d not mapped.\n",rd);
 								return;
 						}
 					}
-					else { /*MFC0*/
+					else { /*MFC0 (move from Copoprocessor 0)*/
 						switch (rd) {
 							case 10:
 								r[rt] = page;
@@ -846,11 +877,42 @@ void mlite_cpu::mlite() {
 							case 14:
 								r[rt] = state->epc;
 							break;
-							
+
 							case 16:
 								r[rt] = global_inst;
 							break;
-							
+				/***************operações adicionados (Jean Pierre)****************/
+							case 17:
+								r[rt] = logical_inst;
+							break;
+							case 18:
+								r[rt] = branch_inst;
+							break;
+							case 19:
+								r[rt] = jump_inst;
+							break;
+							case 20:
+								r[rt] = move_inst;
+							break;
+							case 21:
+								r[rt] = other_inst;
+							break;
+							case 22:
+								r[rt] = arith_inst;
+							break;
+							case 23:
+								r[rt] = load_inst;
+							break;
+							case 24:
+								r[rt] = shift_inst;
+							break;
+							case 25:
+								r[rt] = nop_inst;
+							break;
+							case 26:
+								r[rt] = mult_div_inst;
+							break;
+		/************FIM**********************/
 							default:
 								printf("MFC0: reg %d not mapped.\n",rd);
 								return;
@@ -869,7 +931,7 @@ void mlite_cpu::mlite() {
 						mem_address.write(state->pc);
 					}
 					wait(1);
-					
+
 					branch_inst_kernel=(page != 0? branch_inst_kernel : branch_inst_kernel + 1 );
 					branch_inst_tasks=(page != 0? branch_inst_tasks + 1  : branch_inst_tasks );
 
@@ -882,7 +944,7 @@ void mlite_cpu::mlite() {
 						mem_address.write(state->pc);
 					}
 					wait(1);
-					
+
 					branch_inst_kernel=(page != 0? branch_inst_kernel : branch_inst_kernel + 1 );
 					branch_inst_tasks=(page != 0? branch_inst_tasks + 1  : branch_inst_tasks );
 
@@ -895,7 +957,7 @@ void mlite_cpu::mlite() {
 						mem_address.write(state->pc);
 					}
 					wait(1);
-					
+
 					branch_inst_kernel=(page != 0? branch_inst_kernel : branch_inst_kernel + 1 );
 					branch_inst_tasks=(page != 0? branch_inst_tasks + 1  : branch_inst_tasks );
 
@@ -908,7 +970,7 @@ void mlite_cpu::mlite() {
 						mem_address.write(state->pc);
 					}
 					wait(1);
-					
+
 					branch_inst_kernel=(page != 0? branch_inst_kernel : branch_inst_kernel + 1 );
 					branch_inst_tasks=(page != 0? branch_inst_tasks + 1  : branch_inst_tasks );
 
@@ -919,7 +981,7 @@ void mlite_cpu::mlite() {
 				case 0x20:/*LB*/
 					mem_address.write(ptr & word_addr);	// Address the memory with word address.
 					wait(1);
-					
+
 					load_inst_kernel=(page != 0? load_inst_kernel : load_inst_kernel + 1 );
 					load_inst_tasks=(page != 0? load_inst_tasks + 1  : load_inst_tasks );
 
@@ -1028,7 +1090,7 @@ void mlite_cpu::mlite() {
 					//assert((ptr & 3) == 0);
 					mem_address.write(ptr & word_addr);	// Address the memory with word address.
 					wait(1);
-					
+
 					load_inst_kernel=(page != 0? load_inst_kernel : load_inst_kernel + 1 );
 					load_inst_tasks=(page != 0? load_inst_tasks + 1  : load_inst_tasks );
 
@@ -1166,8 +1228,8 @@ void mlite_cpu::mlite() {
 							r[rt] = ( unsigned short)mem_data_r.read().range(15,0);
 				break;
 
-				case 0x26:/*LWR*/  
-					wait(1); 
+				case 0x26:/*LWR*/
+					wait(1);
 					load_inst_kernel=(page != 0? load_inst_kernel : load_inst_kernel + 1 );
 					load_inst_tasks=(page != 0? load_inst_tasks + 1  : load_inst_tasks );
 
@@ -1235,7 +1297,7 @@ void mlite_cpu::mlite() {
 						mem_address.write(state->pc);// Address the next instruction
 						wait(1);
 					}
-					
+
 					load_inst_kernel=(page != 0? load_inst_kernel : load_inst_kernel + 1 );
 					load_inst_tasks=(page != 0? load_inst_tasks + 1  : load_inst_tasks );
 				break;
@@ -1335,14 +1397,14 @@ void mlite_cpu::mlite() {
 
 				break;
 
-				case 0x2e:/*SWR*/  
-					wait(1); 
+				case 0x2e:/*SWR*/
+					wait(1);
 					other_inst_kernel=(page != 0? other_inst_kernel : other_inst_kernel + 1 );
 					other_inst_tasks=(page != 0? other_inst_tasks + 1  : other_inst_tasks );
 
 				break; //fixme
 				case 0x2f:/*CACHE*/
-					wait(1); 
+					wait(1);
 					other_inst_kernel=(page != 0? other_inst_kernel : other_inst_kernel + 1 );
 					other_inst_tasks=(page != 0? other_inst_tasks + 1  : other_inst_tasks );
 
@@ -1359,7 +1421,7 @@ void mlite_cpu::mlite() {
 					wait(1);
 
 					r[rt] = mem_data_r.read();
-					
+
 					load_inst_kernel=(page != 0? load_inst_kernel : load_inst_kernel + 1 );
 					load_inst_tasks=(page != 0? load_inst_tasks + 1  : load_inst_tasks );
 
@@ -1387,14 +1449,14 @@ void mlite_cpu::mlite() {
 					wait(1);
 
 					r[rt] = 1;
-					
+
 					load_inst_kernel=(page != 0? load_inst_kernel : load_inst_kernel + 1 );
 					load_inst_tasks=(page != 0? load_inst_tasks + 1  : load_inst_tasks );
 
 				break;
 		//
-				case 0x39:/*SWC1*/ 
-					wait(1); 
+				case 0x39:/*SWC1*/
+					wait(1);
 					other_inst_kernel=(page != 0? other_inst_kernel : other_inst_kernel + 1 );
 					other_inst_tasks=(page != 0? other_inst_tasks + 1  : other_inst_tasks );
 
@@ -1406,12 +1468,12 @@ void mlite_cpu::mlite() {
 		//      case 0x3f:/*SDC3*/ break;
 				default:
 					printf("\nPE: %x ERROR2 address=%lu opcode=%u\n",(int)address_router, state->pc,opcode);
-					return;									
+					return;
 			}	// switch()
 
 			global_inst_kernel= logical_inst_kernel + branch_inst_kernel + jump_inst_kernel + move_inst_kernel + other_inst_kernel + arith_inst_kernel + load_inst_kernel + shift_inst_kernel + nop_inst_kernel + mult_div_inst_kernel;
 			global_inst_tasks= logical_inst_tasks + branch_inst_tasks + jump_inst_tasks + move_inst_tasks + other_inst_tasks + arith_inst_tasks + load_inst_tasks + shift_inst_tasks + nop_inst_tasks + mult_div_inst_tasks;
-			
+
 
 			logical_inst					= logical_inst_kernel + logical_inst_tasks;
 			branch_inst					= branch_inst_kernel + branch_inst_tasks;
@@ -1420,8 +1482,8 @@ void mlite_cpu::mlite() {
 			other_inst					= other_inst_kernel + other_inst_tasks;
 			arith_inst					= arith_inst_kernel + arith_inst_tasks;
 			load_inst					= load_inst_kernel + load_inst_tasks;
-			shift_inst					= shift_inst_kernel + shift_inst_tasks;			
-			nop_inst					= nop_inst_kernel + nop_inst_tasks;			
+			shift_inst					= shift_inst_kernel + shift_inst_tasks;
+			nop_inst					= nop_inst_kernel + nop_inst_tasks;
 			mult_div_inst					= mult_div_inst_kernel + mult_div_inst_tasks;
 			global_inst = global_inst_kernel + global_inst_tasks;
 
@@ -1481,4 +1543,3 @@ void mlite_cpu::mult_big_signed(int a, int b) {
 	state->hi = c2;
 	state->lo = c0;
 }
-

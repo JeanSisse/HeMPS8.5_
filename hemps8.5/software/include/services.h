@@ -16,7 +16,7 @@
 
 #define 	MESSAGE_REQUEST					      0x00000010
 #define 	MESSAGE_DELIVERY				      0x00000020
-#define   ENERGY_SLAVE                  0x00000300
+#define   ENERGY_SLAVE                  0x00000300    //Adicionado para tratar energias dos PEs slaves (Jean Pierre)
 #define 	TASK_ALLOCATION     			    0x00000040
 #define 	TASK_ALLOCATED     				    0x00000050
 #define 	TASK_REQUEST        			    0x00000060

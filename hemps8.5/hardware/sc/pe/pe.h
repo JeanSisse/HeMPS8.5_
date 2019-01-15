@@ -99,7 +99,7 @@ SC_MODULE(pe) {
 	//not reset for router
 	sc_signal < bool > reset_n;
 
-	// sc_signal< regflit >  		total_flits; //Adicionado para funcionamento do case TOTAL_FLITS_ROUTER: adicionado no pe.cpp (Jean Pierre)
+	sc_signal< regflit >  		total_flits; //Adicionado para funcionamento do case TOTAL_FLITS_ROUTER: adicionado no pe.cpp (Jean Pierre)
 
 	sc_signal < sc_uint <32 > > end_sim_reg;
 
