@@ -19,7 +19,6 @@
 
 #define CONSTANT_PKT_SIZE	13	//!<Constant Service Header size, based on the structure ServiceHeader.
 
-
 /**
  * \brief This structure is in charge to defines the ServiceHeader field that can be filled by the software part
  * when need to send a packet, or that will be read when the packet is received
@@ -83,7 +82,7 @@ typedef struct {
 		unsigned int initial_address;
 		unsigned int program_counter;
 		unsigned int utilization;
-		unsigned int energy_acc;		//Adicionado para tratar energias dos PEs slaves (Jean Pierre)
+		unsigned int energy_acc;
 	};
 
 	//Add new variables here ...

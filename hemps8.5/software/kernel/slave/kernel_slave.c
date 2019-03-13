@@ -43,8 +43,77 @@ TCB 			idle_tcb;					//!< TCB pointer used to run idle task
 TCB *			current;					//!< TCB pointer used to store the current task executing into processor
 Message 		msg_write_pipe;				//!< Message variable which is used to copy a message and send it by the NoC
 
-unsigned int counter_ticks = 500000;
-unsigned long int router_flits_anterior = 0;
+//unsigned long int global_inst		=0;
+unsigned long int energy_acc_local	=0;
+unsigned long int logical_inst 		=0;
+unsigned long int branch_inst		=0;
+unsigned long int jump_inst			=0;
+unsigned long int move_inst			=0;
+unsigned long int other_inst		=0;
+unsigned long int arith_inst		=0;
+unsigned long int load_inst			=0;
+unsigned long int shift_inst		=0;
+unsigned long int nop_inst	   		=0;
+unsigned long int mult_div_inst 	=0;
+
+unsigned long int logical_energy 	=0;
+unsigned long int branch_energy		=0;
+unsigned long int jump_energy		=0;
+unsigned long int move_energy		=0;
+unsigned long int other_energy		=0;
+unsigned long int arith_energy		=0;
+unsigned long int load_energy		=0;
+unsigned long int shift_energy		=0;
+unsigned long int nop_energy	   	=0;
+unsigned long int mult_div_energy 	=0;
+unsigned long int router_flits 		=0;
+unsigned long int counter_ticks 	=50000;
+
+void send_energy_slave(){
+
+	ServiceHeader *p = get_service_header_slot();
+
+	read_inst();
+
+
+	logical_energy 		= logical_inst * 23 	- logical_energy;
+	branch_energy		= branch_inst * 31 		- branch_energy;
+	jump_energy			= jump_inst * 20 		- jump_energy;			
+	move_energy			= move_inst * 21 		- move_energy;			
+	other_energy		= other_inst * 26 		- other_energy;	
+	arith_energy		= arith_inst * 26 		- arith_energy;
+	load_energy			= load_inst	* 44 		- load_energy;		
+	shift_energy		= shift_inst * 22 		- shift_energy;	
+	nop_energy	  		= nop_inst * 15 		- nop_energy;	    
+	mult_div_energy 	= mult_div_inst * 23 	- mult_div_energy;
+	
+
+	
+	energy_acc_local = (logical_energy + branch_energy + jump_energy + move_energy + other_energy + arith_energy + load_energy + shift_energy + nop_energy + mult_div_energy );
+	
+	
+	logical_energy 		= logical_inst * 23; 
+	branch_energy		= branch_inst * 31; 	
+	jump_energy			= jump_inst * 20; 	
+	move_energy			= move_inst * 21; 	
+	other_energy		= other_inst * 26; 	
+	arith_energy		= arith_inst * 26; 	
+	load_energy			= load_inst	* 44; 	
+	shift_energy		= shift_inst * 22; 	
+	nop_energy	  		= nop_inst * 15; 	
+	mult_div_energy 	= mult_div_inst * 23;
+
+	p->header = cluster_master_address; 
+
+	p->service = ENERGY_SLAVE;
+
+	p->energy_acc = energy_acc_local;
+
+	send_packet(p, 0, 0); 
+		
+}
+
+
 /** Assembles and sends a TASK_TERMINATED packet to the master kernel
  *  \param terminated_task Terminated task TCB pointer
  */
@@ -244,60 +313,6 @@ void write_local_msg_to_task(TCB * task_tcb_ptr, int msg_lenght, int * msg_data)
 
 	//Release task to execute
 	task_tcb_ptr->scheduling_ptr->waiting_msg = 0;
-}
-
-// Função adicionado para gerenciamento das energias dos PEs slaves (Jean Pierre)
-void send_energy_slave(){
-
-	ServiceHeader *p = get_service_header_slot();
-
-	read_inst();
-
-	logical_energy 	= logical_inst * 23 	- logical_energy;
-	branch_energy		= branch_inst * 31 		- branch_energy;
-	jump_energy			= jump_inst * 20 			- jump_energy;
-	move_energy			= move_inst * 21 			- move_energy;
-	other_energy		= other_inst * 26 		- other_energy;
-	arith_energy		= arith_inst * 26 		- arith_energy;
-	load_energy			= load_inst	* 44 			- load_energy;
-	shift_energy		= shift_inst * 22 		- shift_energy;
-	nop_energy	  	= nop_inst * 15 			- nop_energy;
-	mult_div_energy = mult_div_inst * 23 	- mult_div_energy;
-
-	router_flits = MemoryRead(TOTAL_FLITS_ROUTER);
-	energy_acc_local = (logical_energy + branch_energy + jump_energy + move_energy + other_energy + arith_energy + load_energy + shift_energy + nop_energy + mult_div_energy );
-	/*	puts("logical_energy: "); puts(itoa(logical_energy)); puts(" "); puts(itoa(MemoryRead(TICK_COUNTER))); puts("\n");
-		puts("branch_energy: "); puts(itoa(branch_energy)); puts(" "); puts(itoa(MemoryRead(TICK_COUNTER))); puts("\n");
-		puts("jump_energy: "); puts(itoa(jump_energy)); puts(" "); puts(itoa(MemoryRead(TICK_COUNTER))); puts("\n");
-		puts("move_energy: "); puts(itoa(move_energy)); puts(" "); puts(itoa(MemoryRead(TICK_COUNTER))); puts("\n");
-		puts("other_energy: "); puts(itoa(other_energy)); puts(" "); puts(itoa(MemoryRead(TICK_COUNTER))); puts("\n");
-		puts("arith_energy: "); puts(itoa(arith_energy)); puts(" "); puts(itoa(MemoryRead(TICK_COUNTER))); puts("\n");
-		puts("load_energy: "); puts(itoa(load_energy)); puts(" "); puts(itoa(MemoryRead(TICK_COUNTER))); puts("\n");
-		puts("shift_energy: "); puts(itoa(shift_energy)); puts(" "); puts(itoa(MemoryRead(TICK_COUNTER))); puts("\n");
-		puts("nop_energy: "); puts(itoa(nop_energy)); puts(" "); puts(itoa(MemoryRead(TICK_COUNTER))); puts("\n");
-		puts("mult_div_energy: "); puts(itoa(mult_div_energy)); puts(" "); puts(itoa(MemoryRead(TICK_COUNTER))); puts("\n");
-		puts("energy_acc_local: "); puts(itoa(energy_acc_local)); puts(" "); puts(itoa(MemoryRead(TICK_COUNTER))); puts("\n");
-*/
-	logical_energy 		= logical_inst * 23;
-	branch_energy		= branch_inst * 31;
-	jump_energy			= jump_inst * 20;
-	move_energy			= move_inst * 21;
-	other_energy		= other_inst * 26;
-	arith_energy		= arith_inst * 26;
-	load_energy			= load_inst	* 44;
-	shift_energy		= shift_inst * 22;
-	nop_energy	  		= nop_inst * 15;
-	mult_div_energy 	= mult_div_inst * 23;
-
-	puts("energy_acc_local total: "); puts(itoa(energy_acc_local));
-	puts("\t"); puts(itoa(MemoryRead(TICK_COUNTER))); puts("\n");
-
-	router_flits_anterior = router_flits;
-	p->header = cluster_master_address; //para onde estou enviando
-	p->service = ENERGY_SLAVE;
-	p->energy_acc = energy_acc_local;
-	send_packet(p, 0, 0); // send_packet(p, initial_address, dma_msg_size)
-
 }
 
 /** Syscall handler. It is called when a task calls a function defined into the api.h file
@@ -739,15 +754,16 @@ void Scheduler() {
 	Scheduling * scheduled;
 	unsigned int scheduler_call_time;
 
-// **********Trecho adicionado para tratamento de energy_slave (Jean Pierre)*****
-	if((MemoryRead(TICK_COUNTER)) >= counter_ticks){
-		counter_ticks += 500000;
-		send_energy_slave();
-		puts("energy_acc_local (k_slave): ");
-		puts(itoa(energy_acc_local)); puts(" "); puts(itoa(MemoryRead(TICK_COUNTER))); puts("\n");
-	}
-// ******************************************
 	scheduler_call_time = MemoryRead(TICK_COUNTER);
+	
+	if(scheduler_call_time >= counter_ticks){
+
+		counter_ticks = counter_ticks + 500000;
+
+		send_energy_slave();
+		puts("energy_acc_local: "); puts(itoa(energy_acc_local)); puts(" at "); puts(itoa(MemoryRead(TICK_COUNTER))); puts("\n");
+
+	}
 
 	MemoryWrite(SCHEDULING_REPORT, SCHEDULER);
 
@@ -757,7 +773,7 @@ void Scheduler() {
 	#endif
 
 	scheduled = LST(scheduler_call_time);
-
+	
 	if (scheduled){
 
 		//This cast is an approach to reduce the scheduler call overhead

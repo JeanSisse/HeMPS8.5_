@@ -1,0 +1,13 @@
+tasks:
+   - name: taskA
+     load: 1000
+   - name: taskB
+     load: 1000
+   - name: taskC
+     load: 1000
+   - name: taskD
+     load: 1000
+   - name: taskE
+     load: 1000
+   - name: taskF
+     load: 1000

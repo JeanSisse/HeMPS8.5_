@@ -281,7 +281,20 @@ def get_task_BSS_size(app_name, task_name):
 
 
 def get_task_comp_load(app_name, task_name):
-    return 0 #TO DO
+	
+    source_file = "applications/" + app_name + "/" + app_name + ".yaml"
+	
+    yaml_r = get_yaml_reader(source_file)
+
+    tasks_list = yaml_r["tasks"]
+    
+    task_load = 0
+	
+    for task in tasks_list:
+        if task["name"] == task_name:
+           task_load = task["load"] 
+    
+    return task_load
 
 def get_task_dependence_list(app_name, task_name):
     return [] #TO DO

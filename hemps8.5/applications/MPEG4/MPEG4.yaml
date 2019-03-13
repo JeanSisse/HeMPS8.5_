@@ -1,0 +1,25 @@
+tasks:
+   - name: MCPU_0
+     load: 110943
+   - name: BAB_0
+     load: 128846
+   - name: SRAM1_0
+     load: 113904
+   - name: UPSAMP_0
+     load: 961134
+   - name: SDRAM_0
+     load: 4728838
+   - name: SRAM2_0
+     load: 1821769
+   - name: RISC_0
+     load: 507736
+   - name: RAST_0
+     load: 746754
+   - name: ADSP_0
+     load: 170910
+   - name: IDCT_0
+     load: 250812
+   - name: VU_0
+     load: 14164
+   - name: AU_0
+     load: 6305

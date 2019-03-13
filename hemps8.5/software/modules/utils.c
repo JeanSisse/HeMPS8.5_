@@ -13,6 +13,7 @@
 
 #include "../include/plasma.h"
 #include "utils.h"
+#include<stddef.h>
 
 #define FALSE		0
 #define TRUE		1
@@ -249,13 +250,13 @@ char *strcpy(char *dst, const char *src) {
    return dstSave;
 }
 
-/*void memcpy(unsigned int *dest, const unsigned int *src, size_t n) {
+void memcpy(unsigned int *dest, const unsigned int *src, size_t n) {
 
 	unsigned int i = n/4;
 
 	while(i--)
 		dest[i] = src[i];
-}*/
+}
 
 int strlen(const char *string) {
 

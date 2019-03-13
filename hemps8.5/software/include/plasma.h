@@ -65,7 +65,7 @@
 
 #define TICK_COUNTER	  	0x20000300
 #define CURRENT_TASK	  	0x20000400
-#define TOTAL_FLITS_ROUTER 0x20000310 //DEFINIDO PARA OPERAÇÃO ADICIONADO NO Kernel SLAVE (na função send_energy_slave)
+
 #define REQ_APP		  		0x20000350
 #define ACK_APP		  		0x20000360
 
@@ -81,9 +81,10 @@
 #define IRQ_SLACK_TIME				0x02 //bit 1
 #define IRQ_SCHEDULER				0x08 //bit 3
 #define IRQ_NOC					 	0x20 //bit 5
-
+         
 /*Memory Access*/
 #define MemoryRead(A) (*(volatile unsigned int*)(A))
 #define MemoryWrite(A,V) *(volatile unsigned int*)(A)=(V)
 
 #endif /*__PLASMA_H__*/
+

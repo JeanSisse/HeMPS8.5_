@@ -15,8 +15,6 @@
  */
 
 #include "resource_manager.h"
-
-#include "../../include/kernel_pkg.h"
 #include "utils.h"
 #include "processors.h"
 #include "applications.h"
@@ -92,7 +90,7 @@ void page_released(int cluster_id, int proc_address, int task_ID){
  * \param task_id ID of the task to be mapped
  * \return Address of the selected processor
  */
-int map_task(int task_id){
+/*int map_task(int task_id){
 
 	int proc_address;
 	int canditate_proc = -1;
@@ -136,6 +134,71 @@ int map_task(int task_id){
 			}
 		}
 	}
+
+	if (canditate_proc != -1){
+
+		puts("Task mapping for task "), puts(itoa(task_id)); puts(" maped at proc "); puts(itoh(canditate_proc)); puts("\n");
+
+		return canditate_proc;
+	}
+
+	putsv("WARNING: no resources available in cluster to map task ", task_id);
+	return -1;
+}*/
+
+
+int map_task(int task_id){
+
+	int proc_address;
+	int canditate_proc = -1;
+	int min_load = 0;
+	int first_min_load = 1;
+
+	//putsv("Mapping call for task id ", task_id);
+
+#if MAX_STATIC_TASKS
+	//Test if the task is statically mapped
+	for(int i=0; i<MAX_STATIC_TASKS; i++){
+
+		//Test if task_id is statically mapped
+		if (static_map[i][0] == task_id){
+			puts("Task id "); puts(itoa(static_map[i][0])); puts(" statically mapped at processor"); puts(itoh(static_map[i][1])); puts("\n");
+
+			proc_address = static_map[i][1];
+
+			if (get_proc_free_pages(proc_address) <= 0){
+				puts("ERROR: Processor not have free resources\n");
+				while(1);
+			}
+
+			return proc_address;
+		}
+	}
+#endif
+	
+	for(int i=0; i<MAX_CLUSTER_SLAVES; i++){
+
+		proc_address = get_proc_address(i);
+
+		if (get_proc_free_pages(proc_address) > 0){
+			
+			puts("Energy proc "), puts(itoa(proc_address)); puts(" :  "); 
+			puts(itoa(energySlavesAcc[proc_address>>8][proc_address&0xFF])); puts("\n");
+
+			if(energySlavesAcc[proc_address>>8][proc_address&0xFF]<min_load)
+			{
+				canditate_proc = proc_address;
+				min_load = energySlavesAcc[proc_address>>8][proc_address&0xFF];
+			}
+			if(first_min_load==1)
+			{
+				canditate_proc = proc_address;
+				min_load = energySlavesAcc[proc_address>>8][proc_address&0xFF];
+				first_min_load = 0;
+			}
+		}
+	}
+
 
 	if (canditate_proc != -1){
 
@@ -199,7 +262,7 @@ int application_mapping(int cluster_id, int app_id){
  * \param app_task_number Number of task of requered application
  * \return > 0 if mapping OK, -1 if there is not resources available
 */
-int SearchCluster(int GM_cluster_id, int app_task_number) {
+/*int SearchCluster(int GM_cluster_id, int app_task_number) {
 
 	int selected_cluster = -1;
 	int freest_cluster = 0;
@@ -219,5 +282,42 @@ int SearchCluster(int GM_cluster_id, int app_task_number) {
 	}
 
 	return selected_cluster;
+}*/
+
+int SearchCluster(int GM_cluster_id, int app_task_number) {
+
+	int freest_cluster = -1;
+	int freest_cluster_all = -1;
+	
+	unsigned int min_cluster_load = 0xFFFFFFFF;
+	unsigned int min_cluster_load_all = 0xFFFFFFFF;
+
+	for(int i=0; i < CLUSTER_NUMBER; i++) {
+
+		if (cluster_info[i].free_resources >= app_task_number){
+
+
+			if (cluster_load[i] < min_cluster_load){
+
+				freest_cluster = i;
+				min_cluster_load = cluster_load[i];
+			}
+
+		}
+
+		if (cluster_load[i] < min_cluster_load_all){
+
+			freest_cluster_all = i;
+			min_cluster_load_all = cluster_load[i];
+
+		}
+	}
+
+	if (freest_cluster != -1) {
+		return freest_cluster;
+	}
+
+	return freest_cluster_all;
+
 }
 

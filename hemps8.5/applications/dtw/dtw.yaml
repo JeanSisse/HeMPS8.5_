@@ -1,0 +1,13 @@
+tasks:
+   - name: recognizer
+     load: 175085
+   - name: p4
+     load: 5817188
+   - name: p3
+     load: 5817798
+   - name: p2
+     load: 5817271
+   - name: p1
+     load: 5819564
+   - name: bank
+     load: 1468734

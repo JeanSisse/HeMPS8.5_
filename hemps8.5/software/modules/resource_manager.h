@@ -14,6 +14,10 @@
 #ifndef RESOURCE_MANAGER_H_
 #define RESOURCE_MANAGER_H_
 
+#include "../../include/kernel_pkg.h"
+
+unsigned int 	cluster_load[CLUSTER_NUMBER];										//!< Keep the cluster load, updated at every applications start and finish
+
 inline void allocate_cluster_resource(int, int);
 
 inline void release_cluster_resources(int, int);

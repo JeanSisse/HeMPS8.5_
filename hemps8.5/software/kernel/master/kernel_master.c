@@ -32,15 +32,14 @@
 
 
 /*Local Manager (LM) global variables*/
-unsigned int 		pending_app_to_map = 0; 					//!< Controls the number of pending applications already handled by not completely mapped
+unsigned int 	pending_app_to_map = 0; 					//!< Controls the number of pending applications already handled by not completely mapped
 unsigned char 	is_global_master;							//!< Defines if this kernel is at global or local operation mode
-unsigned int 		global_master_address;						//!< Used to stores the global master address, is useful in local operation mode
-unsigned int 		terminated_task_master[MAX_TASKS_APP];		//!< Auxiliary array that stores the terminated task list
+unsigned int 	global_master_address;						//!< Used to stores the global master address, is useful in local operation mode
+unsigned int 	terminated_task_master[MAX_TASKS_APP];		//!< Auxiliary array that stores the terminated task list
 
 
 /*Global Master (GM) global variables*/
 unsigned int 	total_mpsoc_resources = (MAX_LOCAL_TASKS * MAX_SLAVE_PROCESSORS);	//!< Controls the number of total slave processors pages available. Is the admission control variable
-unsigned int 	cluster_load[CLUSTER_NUMBER];										//!< Keep the cluster load, updated at every applications start and finish
 unsigned int 	terminated_app_count = 0;											//!< Used to fires the END OF ALL APPLIATIONS
 unsigned int 	waiting_app_allocation = 0;											//!< Signal that an application is not fully mapped
 
@@ -372,7 +371,6 @@ void handle_packet() {
 	NewTask nt;
 	Application *app;
 	unsigned int task_info[MAX_TASKS_APP*4];
-	unsigned int diff_energy;
 
 	read_packet((ServiceHeader *)&p);
 
@@ -525,9 +523,16 @@ void handle_packet() {
 
 		break;
 
-	case ENERGY_SLAVE: // Adicionado para tratar energias dos PEs slaves (Jean Pierre)
-		if(p.energy_acc > 2340000*5){
-			energySlavesAcc_discretizado[p.source_PE >> 8][p.source_PE & 0xFF] = 10;
+	case SLACK_TIME_REPORT:
+
+		update_proc_slack_time(p.source_PE, p.cpu_slack_time);
+
+		break;
+	
+	case ENERGY_SLAVE:
+
+		if(p.energy_acc > 2340000*5) {
+			energySlavesAcc_discretizado[p.source_PE>>8][p.source_PE&0xFF] = 10;
 		}
 		else if(p.energy_acc > 2080000*5){
 				energySlavesAcc_discretizado[p.source_PE>>8][p.source_PE&0xFF] = 9;
@@ -560,22 +565,13 @@ void handle_packet() {
 
 
 		energySlavesAcc[p.source_PE>>8][p.source_PE&0xFF] = p.energy_acc;
-
-		//puts("p.energy_acc\n"); puts(itoa(p.energy_acc)); puts("\n");
-	
-		//count_receive_power++;
-		//puts("count_receive_power : "); puts(itoa(count_receive_power)); puts(" ");puts(itoa(p.source_PE>>8)); puts(" ");puts(itoa(p.source_PE&0xFF)); puts(" "); puts(itoa(p.energy_acc)); puts("\n");
-
-		//puts("energySlavesAcc: "); puts(itoa(energySlavesAcc[p.source_PE>>8][p.source_PE&0xFF])); puts(" "); puts(itoa(MemoryRead(TICK_COUNTER))); puts("\n");
-
-		energyLocalClusterAcc = diff_energy + energyLocalClusterAcc;	// diff_energy usado sem inicialização
-		break;
-
-	case SLACK_TIME_REPORT:
-
-		update_proc_slack_time(p.source_PE, p.cpu_slack_time);
-
-		break;
+		
+		// puts("p.energy_acc "); puts(itoa(p.energy_acc)); puts("\n");
+		// putsv("energySlavesAcc: ", energySlavesAcc[p.source_PE>>8][p.source_PE&0xFF]);
+		
+		//energyLocalClusterAcc = diff_energy + energyLocalClusterAcc;	
+		
+	break;
 
 	default:
 		puts("ERROR: service unknown ");puts(itoh(p.service)); puts("\n");
@@ -815,6 +811,7 @@ int main() {
 		is_global_master = 0;
 	}
 
+	
 	initialize_applications();
 
 	init_new_task_list();
@@ -822,7 +819,6 @@ int main() {
 	init_service_header_slots();
 
 	puts("Kernel Initialized\n");
-
 
 	for (;;) {
 

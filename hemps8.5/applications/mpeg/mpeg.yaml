@@ -1,0 +1,11 @@
+tasks:
+   - name: start
+     load: 326621
+   - name: ivlc
+     load: 209910
+   - name: iquant
+     load: 171793
+   - name: print
+     load: 4785
+   - name: idct
+     load: 61507

@@ -156,6 +156,7 @@ def generate_to_vhdl(is_master_list, yaml_r):
     file_lines.append("    -- paging definitions\n")
     file_lines.append("    constant PAGE_SIZE_BYTES             : integer := "+str(page_size_KB*1024)+";\n")
     file_lines.append("    constant MEMORY_SIZE_BYTES           : integer := "+str(memory_size_KB*1024)+";\n")
+    file_lines.append("    constant MEMORY_SIZE_WORDS           : integer := "+str((memory_size_KB*1024)/4)+";\n")
     file_lines.append("    constant TOTAL_REPO_SIZE_BYTES       : integer := "+str(repo_size_bytes)+";\n")
     file_lines.append("    constant APP_NUMBER                  : integer := "+str(app_number)+";\n")
     file_lines.append("    constant PAGE_SIZE_H_INDEX        : integer := "+str(page_size_h_index)+";\n")

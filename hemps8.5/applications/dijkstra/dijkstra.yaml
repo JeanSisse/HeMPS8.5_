@@ -1,0 +1,13 @@
+tasks:
+   - name: dijkstra_0
+     load: 2228191
+   - name: divider
+     load: 2645268
+   - name: dijkstra_3
+     load: 2247259
+   - name: dijkstra_2
+     load: 2250871
+   - name: dijkstra_4
+     load: 2268156
+   - name: dijkstra_1
+     load: 2332609
